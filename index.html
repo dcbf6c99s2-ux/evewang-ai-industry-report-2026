@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 行业研究报告 2026 · 理想汽车</title>
+  <link rel="stylesheet" href="styles.css?v=20260513j">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+</head>
+<body>
+
+<!-- ════ HEADER ════ -->
+<header class="rpt-hd">
+  <div class="rpt-hd-left">
+    <h1 class="rpt-title">AI 行业研究报告</h1>
+    <p class="rpt-title-en">Artificial Intelligence Industry Report · 2026</p>
+  </div>
+  <div class="rpt-hd-right">
+    <span class="rpt-meta-item">作者：王艺雯 · Eve Wang</span>
+    <span class="rpt-meta-sep">·</span>
+    <span class="rpt-meta-item">最后更新：2026年5月12日</span>
+  </div>
+</header>
+
+<!-- ════ TAB NAV ════ -->
+<nav class="tab-bar">
+  <button class="tab-btn on"  onclick="showTab(1)"><span class="tab-num">01</span>行业概览</button>
+  <button class="tab-btn"     onclick="showTab(2)"><span class="tab-num">02</span>赛道拆解</button>
+  <button class="tab-btn"     onclick="showTab(3)"><span class="tab-num">03</span>行业未来</button>
+  <button class="tab-btn lx"  onclick="showTab(4)"><span class="tab-num lx-num">04</span>理想汽车专题分析</button>
+  <button class="tab-btn lx"  onclick="showTab(5)"><span class="tab-num lx-num">05</span>试乘体验反馈</button>
+</nav>
+
+<div id="tooltip"></div>
+
+<!-- ════════════════════════════════════════════════
+     SECTION 01 · 行业概览
+════════════════════════════════════════════════ -->
+<section id="s1" class="sp on">
+  <div class="sec-inner">
+    <div class="sec-hd">
+      <span class="sec-num">SECTION 01</span>
+      <h2 class="sec-title">行业概览</h2>
+      <span class="sec-sub">行业全景 · 市场规模 · 全球格局 · 用户与场景</span>
+    </div>
+
+    <!-- 01 · 产业链架构 -->
+    <div class="module" id="m-s1-01">
+      <div class="mod-hd">
+        <span class="mod-no">01</span>
+        <h3 class="mod-title">产业链架构</h3>
+        <span class="mod-sub">算力基础设施 → 基础大模型 → 应用层 · 三层金字塔结构</span>
+      </div>
+      <div class="pyramid-wrap" id="pyramid-wrap"></div>
+    </div>
+
+    <!-- 02 · 核心技术词典 -->
+    <div class="module" id="m-s1-02">
+      <div class="mod-hd">
+        <span class="mod-no">02</span>
+        <h3 class="mod-title">核心技术词典</h3>
+        <span class="mod-sub">14 个核心概念 · 三维度：认知底座 · 对齐与优化 · 具身执行</span>
+      </div>
+      <div class="glossary-grid" id="glossary-grid"></div>
+    </div>
+
+    <!-- 03 · 玩家图谱 -->
+    <div class="module" id="m-s1-03">
+      <div class="mod-hd">
+        <span class="mod-no">03</span>
+        <h3 class="mod-title">玩家图谱</h3>
+        <span class="mod-sub">巨头阵营 · 新锐力量 · 中国力量 — 三大阵营全球分布</span>
+      </div>
+      <div class="player-map-wrap" id="player-map-wrap">
+        <div class="player-map-legend" id="player-map-legend"></div>
+        <div class="map-body">
+          <div class="map-svg-wrap" id="map-svg-player"></div>
+          <div class="map-detail" id="map-detail-player">
+            <div class="map-detail-placeholder">← 点击地图上的<br>高亮国家查看详情</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 · 三大核心趋势 -->
+    <div class="module" id="m-s1-04">
+      <div class="mod-hd">
+        <span class="mod-no">04</span>
+        <h3 class="mod-title">三大核心趋势</h3>
+        <span class="mod-sub">场景为王 · Vibe Coding（编程民主化）· Physical AI</span>
+      </div>
+      <div class="trends-grid" id="trends-grid"></div>
+    </div>
+
+    <div class="sec-foot">
+      <div class="sec-foot-spacer"></div>
+      <span class="sec-foot-info">Section 01 / 04</span>
+      <div class="sec-foot-spacer"></div>
+      <button class="sec-foot-btn" onclick="showTab(2)">赛道深度 →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     SECTION 02 · 赛道拆解
+════════════════════════════════════════════════ -->
+<section id="s2" class="sp">
+  <div class="sec-inner">
+    <div class="sec-hd">
+      <span class="sec-num">SECTION 02</span>
+      <h2 class="sec-title">赛道拆解</h2>
+      <span class="sec-sub">端侧 AI · 硬件铁三角 · 模型蒸馏 · 供应链权力转移</span>
+    </div>
+
+    <!-- 01 · 端侧 AI -->
+    <div class="module" id="m-s2-01">
+      <div class="mod-hd">
+        <span class="mod-no">01</span>
+        <h3 class="mod-title">端侧 AI：从奢侈品到必然</h3>
+        <span class="mod-sub">云端 AI 的四大痛点——成本、延迟、隐私、连接——引出端侧的不可替代性</span>
+      </div>
+      <div id="edge-ai-wrap"></div>
+    </div>
+
+    <!-- 02 · 硬件铁三角 -->
+    <div class="module" id="m-s2-02">
+      <div class="mod-hd">
+        <span class="mod-no">02</span>
+        <h3 class="mod-title">硬件铁三角</h3>
+        <span class="mod-sub">SoC 是工厂厂长，NPU 是大脑皮层，DDR 带宽是运粮通道</span>
+      </div>
+      <div id="hw-triangle-wrap"></div>
+    </div>
+
+    <!-- 03 · 帕累托前沿 & 模型蒸馏 -->
+    <div class="module" id="m-s2-03">
+      <div class="mod-hd">
+        <span class="mod-no">03</span>
+        <h3 class="mod-title">帕累托前沿与模型蒸馏</h3>
+        <span class="mod-sub">不需要最大的模型，需要最适合硬件的精炼模型——知识蒸馏四步拆解</span>
+      </div>
+      <div id="pareto-new-wrap"></div>
+    </div>
+
+    <!-- 04 · 供应链的权力转移 -->
+    <div class="module" id="m-s2-04">
+      <div class="mod-hd">
+        <span class="mod-no">04</span>
+        <h3 class="mod-title">供应链的权力转移</h3>
+        <span class="mod-sub">买芯片 → 软件优化 → 软硬协同设计 → 数据飞轮——垂直整合者摘走最大价值</span>
+      </div>
+      <div id="supply-shift-wrap"></div>
+    </div>
+
+    <div class="sec-foot">
+      <button class="sec-foot-btn ghost" onclick="showTab(1)">← 行业概览</button>
+      <div class="sec-foot-spacer"></div>
+      <span class="sec-foot-info">Section 02 / 04</span>
+      <div class="sec-foot-spacer"></div>
+      <button class="sec-foot-btn" onclick="showTab(3)">行业未来 →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     SECTION 03 · 行业未来（硬件结合与变革）
+════════════════════════════════════════════════ -->
+<section id="s3" class="sp">
+  <div class="sec-inner">
+    <div class="sec-hd">
+      <span class="sec-num">SECTION 03</span>
+      <h2 class="sec-title">行业未来</h2>
+      <span class="sec-sub">硬件三梯队 · 失败教训 · 具身智能物理常识 · 工业现场</span>
+    </div>
+
+    <!-- 01 · 硬件三梯队 -->
+    <div class="module" id="m-s3-01">
+      <div class="mod-hd">
+        <span class="mod-no">01</span>
+        <h3 class="mod-title">硬件三梯队</h3>
+        <span class="mod-sub">智能眼镜 · 穿戴挂件 · 存量重塑——AI 进入身体的三条路径</span>
+      </div>
+      <div id="hw-tiers-wrap"></div>
+    </div>
+
+    <!-- 02 · 失败教训 -->
+    <div class="module" id="m-s3-02">
+      <div class="mod-hd">
+        <span class="mod-no">02</span>
+        <h3 class="mod-title">失败教训</h3>
+        <span class="mod-sub">Rabbit R1 · Humane AI Pin——为什么「取代手机」这条路走不通</span>
+      </div>
+      <div id="failure-wrap"></div>
+    </div>
+
+    <!-- 03 · 具身智能：物理常识 -->
+    <div class="module" id="m-s3-03">
+      <div class="mod-hd">
+        <span class="mod-no">03</span>
+        <h3 class="mod-title">具身智能 · 物理常识</h3>
+        <span class="mod-sub">水倒了会流、杯子碎了不能拿——AI 如何习得人类 0 岁就会的直觉</span>
+      </div>
+      <div id="physical-ai-wrap"></div>
+    </div>
+
+    <!-- 04 · 工业现场 -->
+    <div class="module" id="m-s3-04">
+      <div class="mod-hd">
+        <span class="mod-no">04</span>
+        <h3 class="mod-title">工业现场</h3>
+        <span class="mod-sub">Tesla Optimus · 宇树 H1 · 智元远征——机器人正在工厂「实习」</span>
+      </div>
+      <div id="robot-field-wrap"></div>
+    </div>
+
+    <div class="sec-foot">
+      <button class="sec-foot-btn ghost" onclick="showTab(2)">← 赛道深度</button>
+      <div class="sec-foot-spacer"></div>
+      <span class="sec-foot-info">Section 03 / 04</span>
+      <div class="sec-foot-spacer"></div>
+      <button class="sec-foot-btn lx-btn" onclick="showTab(4)">理想汽车专题分析 →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     SECTION 04 · 理想汽车 AI 战略（专题研究）
+════════════════════════════════════════════════ -->
+<section id="s4" class="sp">
+  <div class="sec-inner s4-inner">
+
+    <div class="sec-hd s4-hd">
+      <span class="sec-num s4-num">SECTION 04 · 专题分析</span>
+      <h2 class="sec-title">理想汽车：具身智能先行者</h2>
+      <span class="sec-sub">战略回顾 · 空间 Agent · MindVLA · 马赫 100 · MindSim</span>
+    </div>
+
+    <!-- 01 · 战略回顾 -->
+    <div class="module" id="m-s4-01">
+      <div class="mod-hd">
+        <span class="mod-no s4-no">01</span>
+        <h3 class="mod-title">战略回顾</h3>
+        <span class="mod-sub">十年里程碑：「场景定义产品」的成功路径</span>
+      </div>
+      <div id="lx-milestones-wrap"></div>
+    </div>
+
+    <!-- 02 · 空间 Agent -->
+    <div class="module" id="m-s4-02">
+      <div class="mod-hd">
+        <span class="mod-no s4-no">02</span>
+        <h3 class="mod-title">下一步 · 空间 Agent</h3>
+        <span class="mod-sub">从交通工具到家庭 AI 管家——理想的第二成长曲线</span>
+      </div>
+      <div id="space-agent-wrap"></div>
+    </div>
+
+    <!-- 03 · MindVLA -->
+    <div class="module" id="m-s4-03">
+      <div class="mod-hd">
+        <span class="mod-no s4-no">03</span>
+        <h3 class="mod-title">核心底座 · MindVLA</h3>
+        <span class="mod-sub">视觉 · 语言 · 行动——AI 如何读懂三维世界</span>
+      </div>
+      <div id="mindvla-wrap"></div>
+    </div>
+
+    <!-- 04 · 马赫 100 -->
+    <div class="module" id="m-s4-04">
+      <div class="mod-hd">
+        <span class="mod-no s4-no">04</span>
+        <h3 class="mod-title">算力底座 · 马赫 100</h3>
+        <span class="mod-sub">为什么「买芯片」不够——自研芯片与 L9 Livis 铁三角</span>
+      </div>
+      <div id="mach100-wrap"></div>
+    </div>
+
+    <!-- 05 · MindSim -->
+    <div class="module" id="m-s4-05">
+      <div class="mod-hd">
+        <span class="mod-no s4-no">05</span>
+        <h3 class="mod-title">进化闭环 · MindSim</h3>
+        <span class="mod-sub">模拟即生产：在虚拟世界跑完几亿公里</span>
+      </div>
+      <div id="mindsim-wrap"></div>
+    </div>
+
+    <div class="sec-foot">
+      <button class="sec-foot-btn ghost" onclick="showTab(3)">← 行业未来</button>
+      <div class="sec-foot-spacer"></div>
+      <span class="sec-foot-info">Section 04 / 04 · 理想汽车专题分析</span>
+      <div class="sec-foot-spacer"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     SECTION 05 · 试乘体验反馈
+════════════════════════════════════════════════ -->
+<section id="s5" class="sp">
+  <div class="sec-inner s4-inner">
+
+    <div class="sec-hd s4-hd">
+      <span class="sec-num s4-num">SECTION 05 · 体验报告</span>
+      <h2 class="sec-title">试乘体验反馈</h2>
+      <span class="sec-sub">理想 i6 · 2026年5月 · 个人视角</span>
+    </div>
+
+    <!-- 01 · 用户画像 -->
+    <div class="module" id="m-s5-01">
+      <div class="mod-hd">
+        <span class="mod-no s4-no">01</span>
+        <h3 class="mod-title">我的用户画像</h3>
+        <span class="mod-sub">智驾增量用户——降低焦虑比提升极限更重要</span>
+      </div>
+      <div id="reviewer-profile-wrap"></div>
+    </div>
+
+    <!-- 02 · 试乘亮点 -->
+    <div class="module" id="m-s5-02">
+      <div class="mod-hd">
+        <span class="mod-no s4-no">02</span>
+        <h3 class="mod-title">试乘亮点</h3>
+        <span class="mod-sub">到店转化 · AR HUD · 智驾拟人化 · 主驾独立声场</span>
+      </div>
+      <div class="trial-highlights-grid" id="trial-highlights-grid"></div>
+    </div>
+
+    <!-- 03 · 产品对比 -->
+    <div class="module" id="m-s5-03">
+      <div class="mod-hd">
+        <span class="mod-no s4-no">03</span>
+        <h3 class="mod-title">理想 i8 / i6 vs Tesla Model Y</h3>
+        <span class="mod-sub">用户心智 · 空间设计 · 智驾体感 · 交互逻辑 · 战略洞察</span>
+      </div>
+      <div id="comparison-table-wrap"></div>
+    </div>
+
+    <div class="sec-foot">
+      <button class="sec-foot-btn ghost" onclick="showTab(4)">← 理想专题</button>
+      <div class="sec-foot-spacer"></div>
+      <span class="sec-foot-info">Section 05 / 05 · 试乘体验反馈</span>
+      <div class="sec-foot-spacer"></div>
+    </div>
+  </div>
+</section>
+
+<script src="data.js?v=20260513j"></script>
+<script src="charts.js?v=20260513j"></script>
+</body>
+</html>
