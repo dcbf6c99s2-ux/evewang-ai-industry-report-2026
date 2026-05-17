@@ -3208,12 +3208,9 @@ function renderVibeCoding() {
       { num:'07', color:'#0B5040', bg:'#E2F5EE',
         phase:'内容迭代打磨',
         desc:'风险矩阵 3 轮精炼；机器人卡片拆分；L9 Livis 第二次试乘后对比表全维度更新。' },
-      { num:'08', color:'#0D3F7A', bg:'#DBEAFE',
-        phase:'预览 & 部署上线',
-        desc:'Mac Terminal 本地预览；按日期建文件夹管理版本；GitHub → Cloudflare Pages 自动发布。' },
-      { num:'09', color:'#E03D1E', bg:'#FDECEA',
-        phase:'校对 & 持续迭代',
-        desc:'全局浏览报告、截图标注问题后批量交给 Claude 修改；涵盖排版调整、措辞优化、数据核实。这一步没有终点——上线后仍在持续进行中。',
+      { num:'08', color:'#E03D1E', bg:'#FDECEA',
+        phase:'校对 & 部署上线',
+        desc:'全局浏览报告、截图标注问题后批量交给 Claude 修改，涵盖排版、措辞、数据核实；确认无误后推送 GitHub，Cloudflare Pages 自动发布。',
         final: true },
     ];
 
@@ -3463,11 +3460,9 @@ function renderVcToolPick() {
     { status: '下一步尝试',   statusColor: '#0052CC', statusBg: '#EBF2FB',
       q: '我需要快速验证一个想法 / 做数据计算',         a: 'ChatGPT + Codex',       color: '#1A7A4A', bg: '#E6F5ED', reason: '沙箱执行代码、画图、算数据，结果即时可见，原型验证最快速。' },
     { status: '观望',         statusColor: '#6B7280', statusBg: '#F3F4F6',
-      q: '我在已有代码库上做功能迭代',                  a: 'GitHub Copilot',        color: '#1A1816', bg: '#F0EEEB', reason: '融合在编辑器里，不打断现有工作流，Tab 补全 + 函数建议覆盖 80% 日常需求。' },
+      q: '我在已有代码库迭代 / 想用 Agent 自动执行任务', a: 'GitHub Copilot / OpenClaw (Cline)', color: '#1A1816', bg: '#F0EEEB', reason: 'Copilot 融合编辑器，Tab 补全覆盖日常增量需求；Cline 可自主读写文件并执行终端命令，自动化程度更高——视项目规模和操控需求选择。' },
     { status: '观望',         statusColor: '#6B7280', statusBg: '#F3F4F6',
       q: '我的数据不能上云 / 需要离线运行',             a: 'Nous Hermes（本地部署）', color: '#B45309', bg: '#FEF3C7', reason: '完全本地运行，数据零泄露风险；是否值得部署，需结合项目的隐私要求和资源条件具体判断。' },
-    { status: '观望',         statusColor: '#6B7280', statusBg: '#F3F4F6',
-      q: '我想用开源 Agent 自动化执行代码任务',         a: 'OpenClaw (Cline)',         color: '#9333EA', bg: '#F5F3FF', reason: '开源免费、可自主读写文件并执行终端命令，是「养虾潮」的代表工具；需要 VSCode + API 配置经验，视场景决定是否引入。' },
   ];
 
   const guideHtml = `
