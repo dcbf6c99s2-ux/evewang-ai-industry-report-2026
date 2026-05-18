@@ -1249,7 +1249,7 @@ function showHwDetail(id) {
     ${c.rivals ? `
     <div class="hw-rivals-section">
       <div class="hw-rivals-label">竞争格局</div>
-      <div class="hw-rivals-list">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
         ${c.rivals.map(r => `
           <div class="hw-rival-card" style="--rc:${r.color}">
             <div class="hw-rival-hd">
@@ -1258,8 +1258,7 @@ function showHwDetail(id) {
               <span class="hw-rival-role">${r.role}</span>
             </div>
             <div class="hw-rival-products">${r.products}</div>
-            <div class="hw-rival-strategy">${r.strategy}</div>
-            <div class="hw-rival-verdict">→ ${r.verdict}</div>
+            <div class="hw-rival-verdict" style="margin-top:8px;">→ ${r.verdict}</div>
           </div>
         `).join('')}
       </div>

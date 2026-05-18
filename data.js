@@ -678,115 +678,137 @@ window.AI_DATA = {
     ]
   },
 
-  /* 02 · 硬件铁三角：SoC · NPU · DDR */
+  /* 02 · 算力铁三角：芯片 · 内存 · 功耗与散热 */
   hw_components: [
     {
-      id: "soc", name: "SoC", full: "片上系统", en: "System on Chip",
-      icon: "🏭", color: "#1A1816",
-      challenge: "传统 SoC 像全才，但处理 AI 的并发逻辑时效率低下。",
-      metaphor: "工厂厂长",
-      metaphor_desc: "调度片内所有计算单元协同工作",
-      desc: "集成 CPU / GPU / NPU 等多单元的「总调度板」，统一协调感知与决策。车规认证比手机严苛 10 倍（AEC-Q100 Grade 0，-40°C ～ 150°C 零失效）；智能汽车形成座舱与智驾两套独立芯片生态。",
+      id: "chip", name: "芯片", full: "训练芯片 · 推理芯片", en: "AI Chips",
+      icon: "⚙️", color: "#1A1816",
+      challenge: "训练靠算力堆叠，推理靠能效取胜——同一块芯片很难同时做到两者极致，玩家与诉求截然不同。",
+      metaphor: "算力引擎",
+      metaphor_desc: "分为训练与推理两大战场，决定 AI 能跑多快、跑多远",
+      desc: "<div style='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px'><div style='background:var(--bg);border-left:3px solid #1A1816;border-radius:0 6px 6px 0;padding:10px 12px'><div style='font-family:var(--mono);font-size:10px;font-weight:700;color:#1A1816;letter-spacing:.05em;margin-bottom:5px'>训练芯片</div><div style='font-size:11.5px;color:var(--i2);line-height:1.6'>追求峰值算力（FP16/BF16），以数据中心 GPU 为主。衡量指标是千卡集群吞吐量。代表：NVIDIA H200 · 华为昇腾 910C · AMD MI300X</div></div><div style='background:var(--bg);border-left:3px solid #D97706;border-radius:0 6px 6px 0;padding:10px 12px'><div style='font-family:var(--mono);font-size:10px;font-weight:700;color:#D97706;letter-spacing:.05em;margin-bottom:5px'>推理 / 端侧芯片</div><div style='font-size:11.5px;color:var(--i2);line-height:1.6'>追求 TOPS/W 能效，落地于汽车、眼镜、手机。自研浪潮（Tesla FSD · 理想 Mach 100 · 苹果 M4）正在颠覆「必须买英伟达」的共识</div></div></div>",
       specs: [
-        { k: "主流制程",     v: "4nm / 3nm（台积电）" },
-        { k: "功耗包络",     v: "5–25W（车规场景）" },
-        { k: "代表产品",     v: "骁龙 8155/8295 · Orin · Thor · 马赫 100" },
-        { k: "L9 Livis 方案", v: "8295（座舱）+ Mach 100（智驾）+ 525M（辅助域）" }
+        { k: "训练旗舰",      v: "NVIDIA H200 · 华为昇腾 910C · AMD MI300X" },
+        { k: "推理旗舰",      v: "英伟达 Thor 2000 TOPS · 理想 Mach 100 2560 TOPS" },
+        { k: "L9 Livis 方案", v: "骡龙 8295（座舱）+ Mach 100（智驾）+ 525M（辅助域）" },
+        { k: "能效标准",      v: "12+ TOPS/W（2026 车规推理基准）" }
       ],
       rivals: [
         {
-          name: "高通 Qualcomm", role: "座舱霸主",
-          icon: "📱", color: "#E03D1E",
-          products: "骁龙 8155 / 8295 · Snapdragon Digital Chassis",
-          strategy: "统治智能座舱（大屏·娱乐·HMI），骁龙 8295 已成旗舰车机标配；正以「舱驾一体」战略向高阶智驾延伸",
-          verdict: "追求座舱稳定性与性价比的车企首选"
-        },
-        {
-          name: "英伟达 NVIDIA", role: "智驾算力天花板",
+          name: "英伟达 NVIDIA", role: "训练 + 推理双霸主",
           icon: "⚡", color: "#76B900",
-          products: "Orin（254 TOPS）· Thor（2000 TOPS）",
-          strategy: "统治高阶自动驾驶——Orin 是 L2+ 主流平台，Thor 锁定 L3/L4，算力规格远超同代竞品",
-          verdict: "追求极致自驾性能的车企优先选择，定价溢价明显"
+          products: "H200 / B200（训练）· Orin 254 TOPS · Thor 2000 TOPS（推理）",
+          strategy: "掌控约 80% AI 训练市场；Orin 是 L2+ 智驾主流平台，Thor 锁定 L3/L4 天花板，CUDA 生态是最深的护城河",
+          verdict: "短期内无可替代，但高价格与出口管制正在加速国产替代"
         },
         {
-          name: "特斯拉 Tesla", role: "垂直整合颠覆者",
-          icon: "🚨", color: "#CC0000",
-          products: "FSD Chip D2（100% 自研，专为 FSD 软件定制）",
-          strategy: "完全绕开高通与英伟达，软硬协同深度定制；若主流车企跟进，芯片巨头将从「必选供应商」降级为「备选方案」",
-          verdict: "行业最大变量——马斯克本人是高通与英伟达最大的不确定因素"
-        }
-      ]
-    },
-    {
-      id: "npu", name: "NPU", full: "神经处理单元", en: "Neural Processing Unit",
-      icon: "⚡", color: "#E03D1E",
-      challenge: "现在的瓶颈不在于「算得慢」，而在于「不够专」，无法原生支持复杂的 Transformer 架构。",
-      metaphor: "大脑皮层",
-      metaphor_desc: "专职执行矩阵乘法，AI 推理的真正主力",
-      desc: "专为矩阵乘加（GEMM）优化的计算单元。相比 CPU 执行同等 AI 任务，NPU 能效高 10–50×。「TOPS（每秒万亿次运算）」是衡量端侧 AI 能力的第一指标，2026 旗舰标准为 45+ TOPS。",
-      specs: [
-        { k: "旗舰标准",  v: "45+ TOPS（2026 车规）" },
-        { k: "能效目标",  v: "12+ TOPS/W（马赫 100 实测 12.8）" },
-        { k: "核心运算",  v: "INT4 / INT8 矩阵乘加（GEMM）" }
-      ],
-      rivals: [
-        {
-          name: "高通 Hexagon NPU", role: "座舱 AI",
+          name: "高通 Qualcomm", role: "座舱推理领导者",
           icon: "📱", color: "#E03D1E",
-          products: "骁龙 8295 Hexagon（45 TOPS）",
-          strategy: "深度整合座舱 AI 任务：语音唤醒、人脸检测、驾驶员监控 DMS。功耗极优，典型场景 <5W",
-          verdict: "座舱 AI 的默认底座，但算力不足以跑端到端大模型"
+          products: "骡龙 8295 Hexagon NPU（45 TOPS）· Snapdragon Digital Chassis",
+          strategy: "统治智能座舱 AI（语音·人脸·DMS），功耗极优 <5W；以「舱驾一体」战略向智驾延伸",
+          verdict: "座舱推理的默认底座，算力上限制约其进入高阶智驾"
         },
         {
-          name: "英伟达 Tensor Core", role: "智驾算力王",
-          icon: "⚡", color: "#76B900",
-          products: "Orin（254 TOPS）· Thor（2000 TOPS）",
-          strategy: "为多传感器融合与端到端 VLA 推理而生；Thor 的 2000 TOPS 是当前量产智驾芯片天花板",
-          verdict: "极致智驾算力首选，功耗与采购成本偏高"
-        },
-        {
-          name: "理想 Mach 100", role: "自研端侧 VLA",
+          name: "理想 · Tesla 自研", role: "垂直整合颠覆者",
           icon: "🎯", color: "#D97706",
-          products: "Mach 100（2560 TOPS · 12.8 TOPS/W）",
-          strategy: "为 MindVLA 端到端模型定制的 DSA 芯片，感知-决策-执行全链路片内完成；L9 Livis 首发搭载",
-          verdict: "中国自研 VLA 芯片标杆，软硬深度协同的具身智能基础"
+          products: "理想 Mach 100（2560 TOPS · 12.8 TOPS/W）· Tesla FSD HW4/HW5",
+          strategy: "绕开外部供应商，软硬协同深度定制；Mach 100 是中国首款量产 VLA DSA 芯片，Tesla FSD 芯片已迭代至第五代",
+          verdict: "自研芯片是「算法 × 硬件」护城河的终极形态，引领行业跟进"
+        },
+        {
+          name: "华为 · AMD", role: "国产替代 · 训练挑战者",
+          icon: "🛡️", color: "#2563EB",
+          products: "华为昇腾 910C（国内对标 H100）· AMD MI300X",
+          strategy: "华为昇腾是中国算力自主化核心，出口管制下唯一规模量产的国产训练芯片；AMD 以更低价格切入英伟达腹地",
+          verdict: "训练市场的两条替代路径：国产自主（华为）与英美系备选（AMD）"
         }
       ]
     },
     {
-      id: "ddr", name: "DDR 带宽", full: "内存带宽 · 汽车存储", en: "Memory Bandwidth",
+      id: "memory", name: "内存", full: "LPDDR · DDR · HBM", en: "Memory & Bandwidth",
       icon: "🚄", color: "#2563EB",
-      challenge: "遭遇「内存墙」困境，数据搬运的能耗远超计算，导致设备发烫严重。",
+      challenge: "「内存墙」困境：NPU 算力空转，数据搬运能耗远超计算本身，边缘设备发烫、数据中心电费暴涨。",
       metaphor: "运粮通道",
-      metaphor_desc: "决定 NPU 实际速度的真正瓶颈",
-      desc: "NPU 算力再强，内存带宽不足就会「算力空转」。LLM 推理的核心瓶颈不是算力，而是把模型权重从内存搬到 NPU 的速度——这就是「内存墙（Memory Wall）」。7B 参数模型 = 约 14GB 权重，需在 16ms 内完成搬运。汽车对存储的核心要求不是「快」，而是「命」：需通过 AEC-Q100 Grade 1 车规认证（-40°C ～ 105°C 全温区零失效），设计寿命 10 年+。「软件定义汽车」让每台车都成为移动数据中心，汽车存储市场增速目前已远超手机。",
+      metaphor_desc: "芯片算力再强，内存带宽不足就会「算力空转」",
+      desc: "<div style='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px'><div style='background:var(--bg);border-left:3px solid #2563EB;border-radius:0 6px 6px 0;padding:10px 12px'><div style='font-family:var(--mono);font-size:10px;font-weight:700;color:#2563EB;letter-spacing:.05em;margin-bottom:5px'>边缘 / 车载</div><div style='font-size:11.5px;color:var(--i2);line-height:1.6'>LPDDR5x 为主（低功耗、高频、贴近 SoC）。三星 / SK海力士 / 美光 / 长鑫存储（CXMT）激烈竞争，国产替代正在加速</div></div><div style='background:var(--bg);border-left:3px solid #1A1816;border-radius:0 6px 6px 0;padding:10px 12px'><div style='font-family:var(--mono);font-size:10px;font-weight:700;color:#1A1816;letter-spacing:.05em;margin-bottom:5px'>数据中心训练</div><div style='font-size:11.5px;color:var(--i2);line-height:1.6'>HBM3e 为主（高带宽内存，封装在 GPU die 旁），带宽达 5 TB/s。几乎只有三星与 SK 海力士能做，是比芯片更隐形的算力瓶颈</div></div></div>",
       specs: [
-        { k: "LPDDR6 带宽",  v: "900 GB/s（新一代标准）" },
-        { k: "7B 模型搬运",  v: "14GB ÷ 900GB/s ≈ 15ms/次" },
-        { k: "车规温度范围", v: "-40°C ～ 105°C（AEC-Q100）" },
-        { k: "设计寿命",     v: "10 年以上（手机约 3 年）" }
+        { k: "LPDDR5x 带宽", v: "900 GB/s（车规新一代标准）" },
+        { k: "HBM3e 带宽",   v: "5 TB/s（NVIDIA H200 封装）" },
+        { k: "7B 模型搬运",  v: "14 GB ÷ 900 GB/s ≈ 15 ms/次" },
+        { k: "车规认证",     v: "AEC-Q100 Grade 1（-40°C ～ 105°C，寿命 10 年+）" }
       ],
       rivals: [
         {
-          name: "美光 Micron", role: "汽车存储领导者",
-          icon: "🥇", color: "#2563EB",
-          products: "Automotive LPDDR5 / LPDDR5X · UFS 4.0 车规版",
-          strategy: "在汽车市场布局最深；全系通过 AEC-Q100 认证，专为宽温区与超长寿命设计，是国内外主流车企的首选供应商",
-          verdict: "软件定义汽车时代的最大受益者，市场增速远超手机存储"
-        },
-        {
-          name: "赛普拉斯 / Infineon", role: "传统车规半导体",
-          icon: "🔧", color: "#4A4743",
-          products: "HyperRAM · NOR Flash · PSRAM",
-          strategy: "深耕 ISO 26262 功能安全认证体系，在 ADAS 控制器与 MCU 配套存储领域具备数十年积累，是美光在功能安全领域最强劲的对手",
-          verdict: "传统车规巨头的护城河在于安全认证积累而非纯粹的性能"
-        },
-        {
-          name: "三星 Samsung", role: "综合存储挑战者",
+          name: "三星 Samsung", role: "综合存储最强",
           icon: "⚔️", color: "#1E3A5F",
-          products: "LPDDR5X · eUFS 4.0 汽车版 · V-NAND 车规版",
-          strategy: "利用消费级超大规模产能优势快速切入汽车级存储市场，成本竞争力强；美光最直接的市场份额竞争对手",
-          verdict: "产能优势明显，但车规认证体系积累相对滞后"
+          products: "LPDDR5x · HBM3 · eUFS 4.0 汽车版",
+          strategy: "全线覆盖边缘与数据中心，HBM 与 SK 海力士并列双寡头，LPDDR5x 凭借超大产能打价格战",
+          verdict: "规模最大、产品线最全，但 HBM 良率与 SK 海力士仍有差距"
+        },
+        {
+          name: "SK 海力士", role: "HBM 绝对领导者",
+          icon: "🥇", color: "#E03D1E",
+          products: "HBM3e（独供 NVIDIA H200）· LPDDR5x",
+          strategy: "HBM3e 独家为英伟达 H200 供货，是当前 AI 训练内存的最关键节点；与英伟达深度绑定",
+          verdict: "AI 军备竞赛中最受益的「卖铲人」，市值已超传统半导体巨头"
+        },
+        {
+          name: "美光 Micron", role: "车规存储深耕者",
+          icon: "🔵", color: "#2563EB",
+          products: "Automotive LPDDR5x · UFS 4.0 车规版 · HBM3e（追赶中）",
+          strategy: "在汽车存储市场布局最深，全系 AEC-Q100 认证，是国内外主流车企首选；HBM 产能追赶三星与 SK",
+          verdict: "软件定义汽车时代最大受益者，车规存储市场增速远超手机"
+        },
+        {
+          name: "长鑫存储 CXMT", role: "国产替代先锋",
+          icon: "🇨🇳", color: "#059669",
+          products: "LPDDR5（国产量产）· DDR5（研发中）",
+          strategy: "中国唯一量产 DRAM 的厂商，受出口管制催化加速扩产；主攻国内汽车与消费电子，与华为、比亚迪深度合作",
+          verdict: "良率与带宽仍落后三代，但政策支持 + 大客户背书正在快速补齐"
+        }
+      ]
+    },
+    {
+      id: "power", name: "功耗与散热", full: "能效 · 热设计 · 电力供给", en: "Power & Thermal",
+      icon: "🌡️", color: "#D97706",
+      challenge: "芯片越强越烫：车规热预算约 200W；数据中心层面，电力正在取代芯片，成为下一个算力瓶颈。",
+      metaphor: "隐形天花板",
+      metaphor_desc: "TOPS 是宣传数字，TOPS/W 才是工程红线",
+      desc: "<div style='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px'><div style='background:var(--bg);border-left:3px solid #D97706;border-radius:0 6px 6px 0;padding:10px 12px'><div style='font-family:var(--mono);font-size:10px;font-weight:700;color:#D97706;letter-spacing:.05em;margin-bottom:5px'>端侧 · 芯片能效</div><div style='font-size:11.5px;color:var(--i2);line-height:1.6'>TOPS/W（每瓦算力）是真正的工程红线。理想 Mach 100 以 12.8 TOPS/W 树立量产标杆；车规整车热预算约 200W</div></div><div style='background:var(--bg);border-left:3px solid #7C3AED;border-radius:0 6px 6px 0;padding:10px 12px'><div style='font-family:var(--mono);font-size:10px;font-weight:700;color:#7C3AED;letter-spacing:.05em;margin-bottom:5px'>数据中心 · 电力供给</div><div style='font-size:11.5px;color:var(--i2);line-height:1.6'>Goldman Sachs 预测 AI 用电 2030 年增长 160%。爱尔兰 / 荷兰已对新建数据中心限电——电力正在成为算力扩张的硬上限</div></div></div>",
+      specs: [
+        { k: "端侧能效标杆",  v: "理想 Mach 100：12.8 TOPS/W（2026 量产最高）" },
+        { k: "车规热预算",    v: "域控合计 <200W（整车散热约束）" },
+        { k: "数据中心 PUE", v: "海底中心 1.076 vs 陆地中心 1.3+（用电效率对比）" },
+        { k: "电力增速预测",  v: "AI 数据中心用电 2030 年增长 160%（Goldman Sachs）" }
+      ],
+      rivals: [
+        {
+          name: "理想 · Tesla 端侧自研", role: "车规能效标杆",
+          icon: "🎯", color: "#D97706",
+          products: "Mach 100（12.8 TOPS/W）· Tesla FSD HW4（感知-规控一体低功耗）",
+          strategy: "软硬协同定制让功耗最小化：Mach 100 专为 MindVLA 模型裁剪指令集，避免通用芯片的冗余能耗",
+          verdict: "端侧 AI 能效的天花板，自研路线的核心竞争优势之一"
+        },
+        {
+          name: "液冷散热方案", role: "数据中心热管理",
+          icon: "💧", color: "#2563EB",
+          products: "Google / Microsoft 浸没式液冷集群 · NVIDIA GB200 NVL72 液冷机架",
+          strategy: "AI 芯片功耗密度已超传统风冷极限；NVIDIA GB200 整机柜要求液冷基础设施，推动数据中心大规模改造",
+          verdict: "液冷从可选变必选，是 2025–2027 年数据中心最大基建投资方向"
+        },
+        {
+          name: "核电 · 清洁能源直购", role: "长期电力供给",
+          icon: "⚛️", color: "#059669",
+          products: "Google · Kairos Power SMR · 微软 · 三里岛核电复活 · Amazon 宾州核电园区",
+          strategy: "三大科技巨头已签订核电长期 PPA；小型模块化核反应堆（SMR）成为 2030 年后 AI 数据中心自供电核心路线",
+          verdict: "「算力即电力」已成共识——谁掌握稳定清洁电源，谁就掌握下一轮扩张的主动权"
+        },
+        {
+          name: "海底数据中心", role: "散热 + 电力一体化",
+          icon: "🌊", color: "#7C3AED",
+          products: "海兰信 · 中国电建（海南陵水，2025–2027 投产）· Microsoft Project Natick",
+          strategy: "深海恒温海水免费散热，PUE 低至 1.076；选址近海上风电，实现算力与绿电就近耦合",
+          verdict: "极致能效解法——用物理降温代替机械制冷，是散热与电力问题的一体化答案"
         }
       ]
     }
