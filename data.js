@@ -362,7 +362,7 @@ window.AI_DATA = {
           key: "OpenAI / Google 数百亿美元算力投入的核心依据" },
         { term: "System 1 & 2",  full: "快思维与慢思维",  en: "System 1 & System 2",
           def: "借自行为经济学的认知双系统。System 1 = 毫秒级本能反应；System 2 = 深度推理。对应智驾端侧实时决策与云端长程规划两种 AI 模式。",
-          key: "o3 / R1 代表 System 2 跃迁；马赫 100 承载 System 1" },
+          key: "o3 / R1 代表 System 2 跃迁；马赫 M100 承载 System 1" },
         { term: "CoT",           full: "思维链",          en: "Chain of Thought",
           def: "激活 AI System 2 推理的核心技术。引导模型逐步展示思考过程，大幅提升复杂数学与规划任务准确率。",
           key: "GSM8K：CoT 使 GPT-3 从 17% → 55%" },
@@ -422,15 +422,19 @@ window.AI_DATA = {
         { term: "Edge AI",       full: "端侧 AI",          en: "Edge AI",
           def: "AI 在设备本地运行，解决云端方案的三大痛点：隐私泄露、网络延迟、断网失效。",
           key: "2026 年端侧 AI 芯片出货量预计超 20 亿颗" },
-        { term: "ACC / LKA",     full: "自适应巡航 / 车道保持", en: "Adaptive Cruise Control / LKA",
+        { term: "ACC / LKA",     full: "自适应巡航 / 车道保持", en: "Adaptive Cruise Control / Lane Keeping Assist",
           def: "具身智能的初级阶段——单一信号感知、固定规则执行。L2 辅助驾驶全球渗透率已超 60%。",
           key: "L2 辅助驾驶全球渗透率已超 60%",
           brands: [ { name: "丰田" }, { name: "大众" }, { name: "本田" }, { name: "宝马" } ] },
-        { term: "高速 NOA",      full: "高速领航辅助驾驶",  en: "Highway NOA",
+        { term: "ADAS",          full: "高级驾驶辅助系统",    en: "Advanced Driver Assistance Systems",
+          def: "所有智能驾驶功能的系统总称，涵盖感知（摄像头 / 雷达 / 激光雷达）、决策与执行三层架构。从 L1 ACC 到 L4 Robotaxi，均属 ADAS 技术栈演进的不同阶段。",
+          key: "全球 ADAS 市场 2030 年预计超 700 亿美元",
+          brands: [ { name: "博世" }, { name: "大陆" }, { name: "Mobileye" }, { name: "华为" } ] },
+        { term: "高速 NOA",      full: "高速领航辅助驾驶",  en: "Highway Navigate on Autopilot",
           def: "高速路全程自主变道、超车、匝道进出，是当前主流新势力的基线能力。",
           key: "2025 年新势力高速 NOA 覆盖率已接近 100%",
           brands: [ { name: "蔚来" }, { name: "比亚迪" }, { name: "特斯拉" }, { name: "极氪" } ] },
-        { term: "城市 NOA",      full: "全场景城市领航辅助", en: "City NOA",
+        { term: "城市 NOA",      full: "全场景城市领航辅助", en: "City Navigate on Autopilot",
           highlight: true,
           def: "当前智驾能力分水岭。城区复杂路口、密集车流全程领航，需实时 3D 环境建模与端到端推理。",
           key: "理想城市 NOA 脱手率 89%（上海早高峰）",
@@ -444,7 +448,7 @@ window.AI_DATA = {
           key: "Tesla FSD v12（2024）；理想 MindVLA 同架构" },
         { term: "DSA",           full: "专用架构芯片",     en: "Domain-Specific Architecture",
           def: "为特定算法负载定制的芯片架构，相对通用 GPU 能效比提升 3–10×，是打破内存墙与功耗瓶颈的核心路径。",
-          key: "马赫 100 能效比比通用智驾芯片高 3×",
+          key: "马赫 M100 能效比比通用智驾芯片高 3×",
           brands: [ { name: "理想" }, { name: "Tesla" }, { name: "Google" } ] },
         { term: "VLA",           full: "视觉-语言-行动模型", en: "Vision-Language-Action Model",
           highlight: true,
@@ -454,8 +458,8 @@ window.AI_DATA = {
           def: "驾驶中出现概率极低但影响极大的边缘工况——逆行、鬼探头、异形障碍。覆盖长尾是端到端与世界模型训练的核心挑战。",
           key: "MindSim 每天生成 10 亿公里以覆盖长尾" },
         { term: "TOPS",          full: "每秒万亿次运算",   en: "Tera Operations Per Second",
-          def: "衡量 AI 芯片推理算力的基本单位。马赫 100 达 2560 TOPS，约为旗舰手机芯片的 50×。",
-          key: "马赫 100：2560 TOPS · 行业同级 3×" },
+          def: "衡量 AI 芯片推理算力的基本单位。马赫 M100 达 2560 TOPS，约为旗舰手机芯片的 50×。",
+          key: "马赫 M100：2560 TOPS · 行业同级 3×" },
         { term: "DDR / LPDDR",   full: "双倍数据率内存",   en: "DDR / Low Power DDR",
           def: "端侧 AI 芯片的主流内存接口。LPDDR5X 带宽约 77 GB/s，是边缘推理性能的带宽上限，远低于训练侧 HBM。",
           key: "LPDDR5X：77 GB/s vs HBM3：3.35 TB/s" }
@@ -686,11 +690,11 @@ window.AI_DATA = {
       challenge: "训练靠算力堆叠，推理靠能效取胜——同一块芯片很难同时做到两者极致，玩家与诉求截然不同。",
       metaphor: "算力引擎",
       metaphor_desc: "分为训练与推理两大战场，决定 AI 能跑多快、跑多远",
-      desc: "<div style='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px'><div style='background:var(--bg);border-left:3px solid #1A1816;border-radius:0 6px 6px 0;padding:10px 12px'><div style='font-family:var(--mono);font-size:10px;font-weight:700;color:#1A1816;letter-spacing:.05em;margin-bottom:5px'>训练芯片</div><div style='font-size:11.5px;color:var(--i2);line-height:1.6'>追求峰值算力（FP16/BF16），以数据中心 GPU 为主。衡量指标是千卡集群吞吐量。代表：NVIDIA H200 · 华为昇腾 910C · AMD MI300X</div></div><div style='background:var(--bg);border-left:3px solid #D97706;border-radius:0 6px 6px 0;padding:10px 12px'><div style='font-family:var(--mono);font-size:10px;font-weight:700;color:#D97706;letter-spacing:.05em;margin-bottom:5px'>推理 / 端侧芯片</div><div style='font-size:11.5px;color:var(--i2);line-height:1.6'>追求 TOPS/W 能效，落地于汽车、眼镜、手机。自研浪潮（Tesla FSD · 理想 Mach 100 · 苹果 M4）正在颠覆「必须买英伟达」的共识</div></div></div>",
+      desc: "<div style='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px'><div style='background:var(--bg);border-left:3px solid #1A1816;border-radius:0 6px 6px 0;padding:10px 12px'><div style='font-family:var(--mono);font-size:10px;font-weight:700;color:#1A1816;letter-spacing:.05em;margin-bottom:5px'>训练芯片</div><div style='font-size:11.5px;color:var(--i2);line-height:1.6'>追求峰值算力（FP16/BF16），以数据中心 GPU 为主。衡量指标是千卡集群吞吐量。代表：NVIDIA H200 · 华为昇腾 910C · AMD MI300X</div></div><div style='background:var(--bg);border-left:3px solid #D97706;border-radius:0 6px 6px 0;padding:10px 12px'><div style='font-family:var(--mono);font-size:10px;font-weight:700;color:#D97706;letter-spacing:.05em;margin-bottom:5px'>推理 / 端侧芯片</div><div style='font-size:11.5px;color:var(--i2);line-height:1.6'>追求 TOPS/W 能效，落地于汽车、眼镜、手机。自研浪潮（Tesla FSD · 理想 Mach M100 · 苹果 M4）正在颠覆「必须买英伟达」的共识</div></div></div>",
       specs: [
         { k: "训练旗舰",      v: "NVIDIA H200 · 华为昇腾 910C · AMD MI300X" },
-        { k: "推理旗舰",      v: "英伟达 Thor 2000 TOPS · 理想 Mach 100 2560 TOPS" },
-        { k: "L9 Livis 方案", v: "骡龙 8295（座舱）+ Mach 100（智驾）+ 525M（辅助域）" },
+        { k: "推理旗舰",      v: "英伟达 Thor 2000 TOPS · 理想 Mach M100 2560 TOPS" },
+        { k: "L9 Livis 方案", v: "骡龙 8295（座舱）+ Mach M100（智驾）+ 525M（辅助域）" },
         { k: "能效标准",      v: "12+ TOPS/W（2026 车规推理基准）" }
       ],
       rivals: [
@@ -711,8 +715,8 @@ window.AI_DATA = {
         {
           name: "理想 · Tesla 自研", role: "垂直整合颠覆者",
           icon: "🎯", color: "#D97706",
-          products: "理想 Mach 100（2560 TOPS · 12.8 TOPS/W）· Tesla FSD HW4/HW5",
-          strategy: "绕开外部供应商，软硬协同深度定制；Mach 100 是中国首款量产 VLA DSA 芯片，Tesla FSD 芯片已迭代至第五代",
+          products: "理想 Mach M100（2560 TOPS · 12.8 TOPS/W）· Tesla FSD HW4/HW5",
+          strategy: "绕开外部供应商，软硬协同深度定制；Mach M100 是中国首款量产 VLA DSA 芯片，Tesla FSD 芯片已迭代至第五代",
           verdict: "自研芯片是「算法 × 硬件」护城河的终极形态，引领行业跟进"
         },
         {
@@ -774,9 +778,9 @@ window.AI_DATA = {
       challenge: "芯片越强越烫：车规热预算约 200W；数据中心层面，电力正在取代芯片，成为下一个算力瓶颈。",
       metaphor: "隐形天花板",
       metaphor_desc: "TOPS 是宣传数字，TOPS/W 才是工程红线",
-      desc: "<div style='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px'><div style='background:var(--bg);border-left:3px solid #D97706;border-radius:0 6px 6px 0;padding:10px 12px'><div style='font-family:var(--mono);font-size:10px;font-weight:700;color:#D97706;letter-spacing:.05em;margin-bottom:5px'>端侧 · 芯片能效</div><div style='font-size:11.5px;color:var(--i2);line-height:1.6'>TOPS/W（每瓦算力）是真正的工程红线。理想 Mach 100 以 12.8 TOPS/W 树立量产标杆；车规整车热预算约 200W</div></div><div style='background:var(--bg);border-left:3px solid #7C3AED;border-radius:0 6px 6px 0;padding:10px 12px'><div style='font-family:var(--mono);font-size:10px;font-weight:700;color:#7C3AED;letter-spacing:.05em;margin-bottom:5px'>数据中心 · 电力供给</div><div style='font-size:11.5px;color:var(--i2);line-height:1.6'>Goldman Sachs 预测 AI 用电 2030 年增长 160%。爱尔兰 / 荷兰已对新建数据中心限电——电力正在成为算力扩张的硬上限</div></div></div>",
+      desc: "<div style='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px'><div style='background:var(--bg);border-left:3px solid #D97706;border-radius:0 6px 6px 0;padding:10px 12px'><div style='font-family:var(--mono);font-size:10px;font-weight:700;color:#D97706;letter-spacing:.05em;margin-bottom:5px'>端侧 · 芯片能效</div><div style='font-size:11.5px;color:var(--i2);line-height:1.6'>TOPS/W（每瓦算力）是真正的工程红线。理想 Mach M100 以 12.8 TOPS/W 树立量产标杆；车规整车热预算约 200W</div></div><div style='background:var(--bg);border-left:3px solid #7C3AED;border-radius:0 6px 6px 0;padding:10px 12px'><div style='font-family:var(--mono);font-size:10px;font-weight:700;color:#7C3AED;letter-spacing:.05em;margin-bottom:5px'>数据中心 · 电力供给</div><div style='font-size:11.5px;color:var(--i2);line-height:1.6'>Goldman Sachs 预测 AI 用电 2030 年增长 160%。爱尔兰 / 荷兰已对新建数据中心限电——电力正在成为算力扩张的硬上限</div></div></div>",
       specs: [
-        { k: "端侧能效标杆",  v: "理想 Mach 100：12.8 TOPS/W（2026 量产最高）" },
+        { k: "端侧能效标杆",  v: "理想 Mach M100：12.8 TOPS/W（2026 量产最高）" },
         { k: "车规热预算",    v: "域控合计 <200W（整车散热约束）" },
         { k: "数据中心 PUE", v: "海底中心 1.076 vs 陆地中心 1.3+（用电效率对比）" },
         { k: "电力增速预测",  v: "AI 数据中心用电 2030 年增长 160%（Goldman Sachs）" }
@@ -785,8 +789,8 @@ window.AI_DATA = {
         {
           name: "理想 · Tesla 端侧自研", role: "车规能效标杆",
           icon: "🎯", color: "#D97706",
-          products: "Mach 100（12.8 TOPS/W）· Tesla FSD HW4（感知-规控一体低功耗）",
-          strategy: "软硬协同定制让功耗最小化：Mach 100 专为 MindVLA 模型裁剪指令集，避免通用芯片的冗余能耗",
+          products: "Mach M100（12.8 TOPS/W）· Tesla FSD HW4（感知-规控一体低功耗）",
+          strategy: "软硬协同定制让功耗最小化：Mach M100 专为 MindVLA 模型裁剪指令集，避免通用芯片的冗余能耗",
           verdict: "端侧 AI 能效的天花板，自研路线的核心竞争优势之一"
         },
         {
@@ -940,7 +944,7 @@ window.AI_DATA = {
         power: "软件平台方", bar: 45 },
       { phase: "Phase 3", era: "2023–2026", title: "软硬协同设计",
         icon: "🔗", color: "#E03D1E",
-        desc: "芯片架构与模型算子协同设计——芯片「为模型而生」，而非模型「适配芯片」。Apple Silicon、Tesla FSD Chip、理想马赫 100 均采用此路径。",
+        desc: "芯片架构与模型算子协同设计——芯片「为模型而生」，而非模型「适配芯片」。Apple Silicon、Tesla FSD Chip、理想马赫 M100 均采用此路径。",
         power: "垂直整合者", bar: 75 },
       { phase: "Phase 4", era: "2026+", title: "数据飞轮时代",
         icon: "🌀", color: "#1A1816",
@@ -952,7 +956,7 @@ window.AI_DATA = {
       { name: "Tesla",    chip: "FSD Chip D2",   strategy: "自动驾驶训练+推理专用芯片",   highlight: false },
       { name: "Google",   chip: "TPU v5e",       strategy: "云端训练 + Pixel 端侧协同",   highlight: false },
       { name: "华为",     chip: "昇腾 910C",     strategy: "全国产算力生态闭环",           highlight: false },
-      { name: "理想汽车", chip: "马赫 100",       strategy: "车规 AI 推理加速 · 软硬协同", highlight: true  }
+      { name: "理想汽车", chip: "马赫 M100",       strategy: "车规 AI 推理加速 · 软硬协同", highlight: true  }
     ]
   },
 
@@ -1059,7 +1063,7 @@ window.AI_DATA = {
     chips: [
       { name: "NVIDIA H200",   color: "#1A1816", vals: [100, 88, 100, 45, 0] },
       { name: "骁龙 8 Elite",  color: "#4A4743", vals: [22,  30,  18, 80, 60] },
-      { name: "马赫 100（理想）",color: "#E03D1E", vals: [42,  38,  24, 88, 100] }
+      { name: "马赫 M100（理想）",color: "#E03D1E", vals: [42,  38,  24, 88, 100] }
     ]
   },
 
@@ -1282,7 +1286,7 @@ window.AI_DATA = {
       desc: "800V 高压 + 5C 超快充，12 分钟补能 80%，彻底解决「续航焦虑」物理前提。" },
     { year: "2024", title: "MindVLA 发布",        type: "ai",       color: "#E03D1E",
       desc: "端到端 VLA 模型上线，城市 NOA 脱手率 89%，具身智能从实验室走入量产车。" },
-    { year: "2025", title: "马赫 100 量产",       type: "chip",     color: "#E03D1E",
+    { year: "2025", title: "马赫 M100 量产",       type: "chip",     color: "#E03D1E",
       desc: "自研 5nm 车规 AI 推理芯片流片，软硬协同设计闭环，摆脱算力供应链依赖。" },
     { year: "2026+", title: "空间 Agent 元年",    type: "future",   color: "#1A1816",
       desc: "从驾驶助手到懂全家人的「AI 管家」，理想的第二成长曲线正式开启。" }
@@ -1341,9 +1345,9 @@ window.AI_DATA = {
           {
             icon: "⚙️",
             name: "端侧算力闭环",
-            en: "Mach 100",
+            en: "Mach M100",
             stat: "2026 年进入量产准备期",
-            desc: "自研马赫 100 芯片针对 MindVLA 神经网络结构原生优化，旨在摆脱通用 GPU 依赖，提升端侧推理能效比，打通软硬一体护城河。"
+            desc: "自研马赫 M100 芯片针对 MindVLA 神经网络结构原生优化，旨在摆脱通用 GPU 依赖，提升端侧推理能效比，打通软硬一体护城河。"
           },
           {
             icon: "📡",
@@ -1410,7 +1414,7 @@ window.AI_DATA = {
             def: "将线控底盘（X-by-Wire）视作具身智能的「肌肉」，让 AI 直接驱动物理动作，实现数字决策与物理执行的毫秒级融合。",
             points: [
               { label: "AI 预判悬架", text: "MindVLA 2.0 通过感知路面起伏，提前 50ms 调整线控悬架阻尼，实现真正的「魔毯」体验——而非传统的被动响应。" },
-              { label: "极限界计算", text: "Mach 100 芯片支持下，湿滑或极端避障场景中 AI 以 1000Hz+ 频率微调线控转向和制动，超越人类反应极限。" },
+              { label: "极限界计算", text: "Mach M100 芯片支持下，湿滑或极端避障场景中 AI 以 1000Hz+ 频率微调线控转向和制动，超越人类反应极限。" },
               { label: "全栈自研", text: "理想线控转向与线控制动系统实现全栈自研，在 L9 Livis 首发搭载，对标超豪华品牌物理驾控上限。" }
             ]
           },
@@ -1441,13 +1445,13 @@ window.AI_DATA = {
             def: "不再是感知→规划→控制的分模块堆叠，而是视觉、语言、行动三位一体的通用物理智能体，具备类 o1 的长程推理能力，在 NVIDIA GTC 2026 上正式发布。",
             points: [
               { label: "从「看图说话」到「物理直觉」", text: "通过「世界模拟器」学习物理常识：下雨天路面湿滑制动距离需提前 20%；预判障碍物的质量与惯性——这是传统规则代码无法编写的隐性知识。" },
-              { label: "极致的端侧闭环", text: "Mach 100 芯片加持下，通过模型蒸馏保持高性能，功耗仅为云端运行的 1/10。感知→决策→执行全链路延迟压缩至业界最低。" },
+              { label: "极致的端侧闭环", text: "Mach M100 芯片加持下，通过模型蒸馏保持高性能，功耗仅为云端运行的 1/10。感知→决策→执行全链路延迟压缩至业界最低。" },
               { label: "L9 Livis 的灵魂", text: "Livis 不再是语音助手，而是基于意图交互（LUI）的「空间 Agent」——理解你「想要什么」，而非只响应「说了什么」。" }
             ]
           },
           {
             icon: "⚙️",
-            title: "Mach 100 芯片",
+            title: "Mach M100 芯片",
             subtitle: "具身智能的「端侧强心脏」",
             def: "专为大模型推理设计的自研 DSA（专用架构）芯片，针对 MindVLA 2.0 的神经网络结构原生优化，而非通用 GPU 的降格使用，2026 年进入关键量产准备期。",
             points: [
@@ -1484,7 +1488,7 @@ window.AI_DATA = {
           id: "acc_lka",
           level: "L1 / L2",
           name: "ACC + LKA",
-          name_full: "自适应巡航 + 车道保持",
+          name_full: "自适应巡航（Adaptive Cruise Control）+ 车道保持辅助（Lane Keeping Assist）",
           en: "Adaptive Cruise Control · Lane Keep Assist",
           color: "#8C8A86",
           icon: "🚗",
@@ -1501,7 +1505,7 @@ window.AI_DATA = {
           id: "highway_noa",
           level: "L2+",
           name: "高速 NOA",
-          name_full: "高速领航辅助驾驶",
+          name_full: "高速领航辅助驾驶（Highway Navigate on Autopilot）",
           en: "Highway Navigate on Autopilot",
           color: "#2563EB",
           icon: "🛣️",
@@ -1518,8 +1522,8 @@ window.AI_DATA = {
           id: "city_noa",
           level: "L2++",
           name: "全场景 NOA",
-          name_full: "城市 + 高速全场景领航",
-          en: "Full-Scene City & Highway NOA",
+          name_full: "城市 + 高速全场景领航（Full-Scene Navigate on Autopilot）",
+          en: "Full-Scene City & Highway Navigate on Autopilot",
           color: "#E03D1E",
           icon: "🏙️",
           desc: "主动规划，端到端决策——从停车场到停车场全程接管，城区复杂路口、施工绕行、交警手势均可应对。是中美顶尖 AI 车企的真正分水岭。",
@@ -1584,7 +1588,7 @@ window.AI_DATA = {
     ]
   },
 
-  /* 04 · 马赫 100 + L9 Livis */
+  /* 04 · 马赫 M100 + L9 Livis */
   lx_mach100: {
     headline: "编排式数据流架构：为什么「买芯片」不够",
     arch_contrast: {
@@ -2038,8 +2042,7 @@ window.AI_DATA = {
     brands: {
       /* 国内 + 海外共用 */
       '理想':       { color: '#D97706', priority: true },
-      '问界':       { color: '#1D4ED8' },
-      '乐道':       { color: '#059669' },
+      '鸿蒙智行':   { color: '#1D4ED8' },
       '小米':       { color: '#EA580C' },
       '特斯拉':     { color: '#DC2626' },
       '蔚来':       { color: '#3B82F6' },
@@ -2061,54 +2064,66 @@ window.AI_DATA = {
       { year: 2024.55, brand: '理想',   name: 'L6',          price: 26.5,  pmin: 24.98, pmax: 27.98 },
       /* 理想 — i 系列（纯电）★ 已上市 */
       { year: 2025.6,  brand: '理想',   name: 'i8',          price: 33.98, pmin: 30.98, pmax: 35.98 },
-      { year: 2026.3,  brand: '理想',   name: 'i6',          price: 24.98, pmin: 21.98, pmax: 27.98 },
+      { year: 2025.74, brand: '理想',   name: 'i6',          price: 24.98, pmin: 21.98, pmax: 27.98 },
       /* 理想 — 2026年5月 全新 L 系列 ★ 已上市 */
       { year: 2026.38, brand: '理想',   name: 'L9 Ultra',    price: 45.98, pmin: 45.98, pmax: 45.98 },
       { year: 2026.44, brand: '理想',   name: 'L9 Livis',    price: 50.98, pmin: 50.98, pmax: 50.98 },
       /* 理想 — 规划 */
       { year: 2026.9,  brand: '理想',   name: 'M 系列',      price: 40.0,  pmin: 35.0,  pmax: 50.0,  planned: true },
-      /* 问界 */
-      { year: 2023.35, brand: '问界',   name: '问界 M7',     price: 30.0,  pmin: 25.98, pmax: 33.98 },
-      { year: 2023.75, brand: '问界',   name: '问界 M9',     price: 52.0,  pmin: 46.98, pmax: 56.98 },
-      { year: 2025.5,  brand: '问界',   name: '问界 M8',     price: 31.98, pmin: 25.98, pmax: 37.98 },
-      { year: 2025.8,  brand: '问界',   name: 'M9 Ultra',    price: 59.98, pmin: 56.98, pmax: 62.98 },
-      { year: 2026.65, brand: '问界',   name: 'ADS 5.0 新车', price: 42.0, pmin: 35.0,  pmax: 50.0,  planned: true },
+      /* 鸿蒙智行 — 问界（赛力斯 × 华为）*/
+      { year: 2023.70, brand: '鸿蒙智行',   name: '问界 M7',     price: 30.0,  pmin: 25.98, pmax: 33.98 },
+      { year: 2023.97, brand: '鸿蒙智行',   name: '问界 M9',     price: 52.0,  pmin: 46.98, pmax: 56.98 },
+      { year: 2025.5,  brand: '鸿蒙智行',   name: '问界 M8',     price: 31.98, pmin: 25.98, pmax: 37.98 },
+      { year: 2025.8,  brand: '鸿蒙智行',   name: 'M9 Ultra',    price: 59.98, pmin: 56.98, pmax: 62.98 },
+      { year: 2026.49, brand: '鸿蒙智行',   name: '问界 M9 2026款 (5/27)', price: 56.98, pmin: 52.98, pmax: 62.98, planned: true },
+      /* 鸿蒙智行 — 智界（奇瑞 × 华为）*/
+      { year: 2023.97, brand: '鸿蒙智行',   name: '智界 S7',      price: 29.98, pmin: 24.98, pmax: 34.98 },
+      { year: 2024.83, brand: '鸿蒙智行',   name: '智界 R7',      price: 28.98, pmin: 24.98, pmax: 32.98 },
+      { year: 2026.37, brand: '鸿蒙智行',   name: '智界 V9',      price: 49.98, pmin: 44.98, pmax: 55.98 },
+      /* 鸿蒙智行 — 享界（北汽 × 华为）*/
+      { year: 2024.67, brand: '鸿蒙智行',   name: '享界 S9',      price: 46.99, pmin: 42.99, pmax: 50.99 },
+      /* 鸿蒙智行 — 尊界（江淮 × 华为）*/
+      { year: 2025.33, brand: '鸿蒙智行',   name: '尊界 S800',    price: 120.0, pmin: 108.0, pmax: 150.0 },
       /* 乐道 */
-      { year: 2024.8,  brand: '乐道',   name: '乐道 L60',    price: 22.7,  pmin: 20.69, pmax: 24.69 },
-      { year: 2026.7,  brand: '乐道',   name: '乐道 L90',    price: 30.0,  pmin: 27.0,  pmax: 33.0,  planned: true },
+      { year: 2024.8,  brand: '蔚来',   name: '乐道 L60',    price: 22.7,  pmin: 21.69, pmax: 24.69 },
+      { year: 2026.7,  brand: '蔚来',   name: '乐道 L90',    price: 30.0,  pmin: 27.0,  pmax: 33.0,  planned: true },
       /* 小米 */
       { year: 2024.3,  brand: '小米',   name: '小米 SU7',    price: 25.8,  pmin: 21.59, pmax: 29.99 },
       { year: 2025.1,  brand: '小米',   name: 'SU7 Ultra',   price: 67.24, pmin: 52.99, pmax: 81.49 },
-      { year: 2026.6,  brand: '小米',   name: '小米 MX11',   price: 31.5,  pmin: 28.0,  pmax: 35.0,  planned: true },
-      { year: 2027.1,  brand: '小米',   name: '增程 SUV',    price: 25.0,  pmin: 22.0,  pmax: 28.0,  planned: true },
+      { year: 2026.6,  brand: '小米',   name: '小米 YU7',    price: 31.5,  pmin: 28.0,  pmax: 35.0,  planned: true },
+      { year: 2026.92, brand: '小米',   name: '寻天',        price: 46.0,  pmin: 40.0,  pmax: 55.0,  planned: true },
       /* 特斯拉 */
       { year: 2019.5,  brand: '特斯拉', name: '国产 Model 3', price: 28.0,  pmin: 22.99, pmax: 32.99 },
       { year: 2021.2,  brand: '特斯拉', name: '国产 Model Y', price: 30.2,  pmin: 24.99, pmax: 35.49 },
       { year: 2023.65, brand: '特斯拉', name: 'Model 3 焕新', price: 28.4,  pmin: 23.19, pmax: 33.59 },
-      { year: 2025.3,  brand: '特斯拉', name: 'Y Juniper',    price: 29.5,  pmin: 26.99, pmax: 31.99 },
-      { year: 2026.5,  brand: '特斯拉', name: 'Model 2',      price: 17.5,  pmin: 15.0,  pmax: 20.0,  planned: true },
+      { year: 2025.08, brand: '特斯拉', name: 'Model Y 焕新款', price: 29.5,  pmin: 26.99, pmax: 31.99 },
+      { year: 2026.5,  brand: '特斯拉', name: '平价车型 Redwood', price: 17.5,  pmin: 15.0,  pmax: 20.0,  planned: true },
       /* 蔚来 */
-      { year: 2019.7,  brand: '蔚来',   name: '蔚来 ES6',    price: 41.3,  pmin: 35.80, pmax: 46.80 },
+      { year: 2019.5,  brand: '蔚来',   name: '蔚来 ES6',    price: 41.3,  pmin: 35.80, pmax: 46.80 },
+      { year: 2022.75, brand: '蔚来',   name: '蔚来 ET5',    price: 35.7,  pmin: 32.80, pmax: 38.60 },
+      { year: 2023.26, brand: '蔚来',   name: '蔚来 EC7',    price: 50.2,  pmin: 46.80, pmax: 53.60 },
       { year: 2023.3,  brand: '蔚来',   name: 'ES6 换代',    price: 36.7,  pmin: 33.80, pmax: 39.60 },
+      { year: 2023.70, brand: '蔚来',   name: 'ET5T',        price: 35.7,  pmin: 32.80, pmax: 38.60 },
+      { year: 2023.74, brand: '蔚来',   name: '蔚来 EC6',    price: 41.9,  pmin: 36.90, pmax: 46.90 },
       { year: 2024.2,  brand: '蔚来',   name: '蔚来 ES8',    price: 45.8,  pmin: 41.8,  pmax: 49.8  },
       { year: 2025.2,  brand: '蔚来',   name: '蔚来 ET9',    price: 78.0,  pmin: 78.0,  pmax: 78.0  },
       { year: 2025.35, brand: '蔚来',   name: '萤火虫',      price: 13.98, pmin: 12.88, pmax: 14.98 },
-      { year: 2026.6,  brand: '蔚来',   name: 'ET9 Tour',    price: 55.0,  pmin: 52.0,  pmax: 58.0,  planned: true },
+      { year: 2026.40, brand: '蔚来',   name: 'ES9 (5/27)',  price: 59.3,  pmin: 52.80, pmax: 65.80, planned: true },
       /* 小鹏 */
       { year: 2020.3,  brand: '小鹏',   name: '小鹏 P7',     price: 29.0,  pmin: 22.99, pmax: 34.99 },
       { year: 2022.6,  brand: '小鹏',   name: '小鹏 G9',     price: 39.0,  pmin: 30.99, pmax: 46.99 },
+      { year: 2024.03, brand: '小鹏',   name: '小鹏 X9',     price: 42.9,  pmin: 35.98, pmax: 49.8  },
       { year: 2024.6,  brand: '小鹏',   name: 'MONA M03',    price: 13.8,  pmin: 11.98, pmax: 15.58 },
       { year: 2024.9,  brand: '小鹏',   name: '小鹏 P7+',    price: 21.2,  pmin: 18.68, pmax: 23.68 },
       { year: 2025.9,  brand: '小鹏',   name: 'X9 Ultra',    price: 45.0,  pmin: 39.98, pmax: 49.98 },
-      { year: 2026.65, brand: '小鹏',   name: '图灵芯片新车', price: 30.0, pmin: 25.0,  pmax: 40.0,  planned: true },
-      { year: 2027.1,  brand: '小鹏',   name: 'VLA 2代车型',  price: 28.0, pmin: 22.0,  pmax: 35.0,  planned: true },
+      { year: 2026.38, brand: '小鹏',   name: '小鹏 GX',     price: 31.98, pmin: 27.98, pmax: 35.98 },
     ],
     price_bands_dom: [
       { label: '15万以下', min: 9,   max: 16, color: 'rgba(148,163,184,0.07)' },
       { label: '16-30万',  min: 16,  max: 30, color: 'rgba(34,197,94,0.05)'   },
       { label: '30-45万',  min: 30,  max: 45, color: 'rgba(59,130,246,0.05)'  },
       { label: '45-65万',  min: 45,  max: 65, color: 'rgba(245,158,11,0.05)'  },
-      { label: '65万以上', min: 65,  max: 88, color: 'rgba(239,68,68,0.04)'   },
+      { label: '65万以上',  min: 65,  max: 78,  color: 'rgba(239,68,68,0.04)'   },
     ],
     /* ── 海外：已知售价产品（USD 千元）── */
     overseas_scatter: [
@@ -2116,24 +2131,24 @@ window.AI_DATA = {
       { year: 2021.0,  brand: '特斯拉',   name: 'Model Y',        price: 42,   pmin: 35,   pmax: 49   },
       { year: 2023.8,  brand: '特斯拉',   name: 'Cybertruck',     price: 80.5, pmin: 61,   pmax: 100  },
       { year: 2025.2,  brand: '特斯拉',   name: 'Model Y Juniper',price: 44,   pmin: 37,   pmax: 50   },
-      { year: 2026.3,  brand: '特斯拉',   name: 'Model 2',        price: 25,   pmin: 25,   pmax: 25,   planned: true },
-      { year: 2026.6,  brand: '特斯拉',   name: 'Cybercab',       price: 30,   pmin: 30,   pmax: 30,   planned: true },
+      { year: 2026.3,  brand: '特斯拉',   name: '平价车型 Redwood', price: 25,   pmin: 22,   pmax: 28,   planned: true },
+      { year: 2026.6,  brand: '特斯拉',   name: 'Cybercab',       price: 29,   pmin: 25,   pmax: 33,   planned: true },
       /* 理想 ★ 已进入海外 */
-      { year: 2026.7,  brand: '理想',     name: 'L9 Ultra（中东）',price: 68,  pmin: 60,   pmax: 78,   planned: true },
+      { year: 2026.7,  brand: '理想',     name: 'L9（中东）',      price: 68,  pmin: 60,   pmax: 78,   planned: true },
       { year: 2027.2,  brand: '理想',     name: 'i系列 国际版',   price: 42,   pmin: 36,   pmax: 50,   planned: true },
       /* 蔚来 */
-      { year: 2022.0,  brand: '蔚来',     name: 'ET7 欧洲版',     price: 91.5, pmin: 85,   pmax: 98   },
-      { year: 2025.5,  brand: '蔚来',     name: 'ET9 海外版',     price: 105,  pmin: 98,   pmax: 115,  planned: true },
-      /* 问界 */
-      { year: 2025.7,  brand: '问界',     name: 'AITO 9',         price: 65.8, pmin: 65.8, pmax: 65.8 },
-      { year: 2026.5,  brand: '问界',     name: 'M8 海外版',      price: 48,   pmin: 42,   pmax: 56,   planned: true },
+      { year: 2022.2,  brand: '蔚来',     name: 'ET7 欧洲版',     price: 66,   pmin: 63,   pmax: 70   },
+      { year: 2027.0,  brand: '蔚来',     name: 'ET9 海外版',     price: 105,  pmin: 98,   pmax: 115,  planned: true },
+      /* 鸿蒙智行 */
+      { year: 2026.2,  brand: '鸿蒙智行', name: 'AITO M9（UAE）', price: 78,   pmin: 72,   pmax: 86              },
+      { year: 2026.8,  brand: '鸿蒙智行', name: 'AITO M9（GCC扩张）', price: 76, pmin: 70, pmax: 84,  planned: true },
       /* 小鹏 */
-      { year: 2024.2,  brand: '小鹏',     name: '欧版 P7',        price: 54,   pmin: 54,   pmax: 54   },
-      { year: 2024.4,  brand: '小鹏',     name: '欧版 G9',        price: 62.3, pmin: 62.3, pmax: 62.3 },
+      { year: 2024.37, brand: '小鹏',     name: '欧版 P7',        price: 62,   pmin: 50,   pmax: 75   },
+      { year: 2024.37, brand: '小鹏',     name: '欧版 G9',        price: 66,   pmin: 58,   pmax: 75   },
       /* 小米 */
       { year: 2026.9,  brand: '小米',     name: 'SU7 国际版',     price: 38,   pmin: 32,   pmax: 45,   planned: true },
       /* 乐道 */
-      { year: 2026.8,  brand: '乐道',     name: 'ONVO L60',       price: 28,   pmin: 22,   pmax: 35,   planned: true },
+      { year: 2026.8,  brand: '蔚来',     name: 'ONVO L60',       price: 28,   pmin: 22,   pmax: 35,   planned: true },
       /* Mercedes */
       { year: 2022.2,  brand: 'Mercedes', name: 'Drive Pilot',    price: 135,  pmin: 120,  pmax: 150  },
       { year: 2027.0,  brand: 'Mercedes', name: 'MB.OS 新车',     price: 80,   pmin: 60,   pmax: 100,  planned: true },
@@ -2141,11 +2156,90 @@ window.AI_DATA = {
     /* ── 海外：TaaS / Robotaxi 服务 ── */
     overseas_taas: [
       { year: 2023,   brand: 'Waymo',      name: 'I-PACE 5th Gen',     ai: '⚡', markets: '凤凰城 · 旧金山',  planned: false },
-      { year: 2024,   brand: '百度Apollo', name: '萝卜快跑 RT6（港）', ai: '⚡', markets: '中国香港',          planned: false },
+      { year: 2024,   brand: '百度Apollo', name: '萝卜快跑 RT6',       ai: '⚡', markets: '武汉 · 北京 · 深圳', planned: false },
       { year: 2025,   brand: 'Zoox',       name: 'Robotaxi（初代）',   ai: '❌', markets: '拉斯维加斯',        planned: false },
       { year: 2026,   brand: 'Waymo',      name: 'Zeekr RT 6th Gen',  ai: '✨', markets: '全球扩张中',         planned: true  },
       { year: 2026,   brand: 'Zoox',       name: '全面商用版',         ai: '✨', markets: '美国多城',           planned: true  },
       { year: 2026,   brand: '百度Apollo', name: 'RT6 右舵版',         ai: '✨', markets: '英国 · 德国',        planned: true  },
+    ],
+  },
+
+
+  /* ─── S04 附录 · 主要玩家战略 ─────────────────────── */
+  s4_player_strategy: {
+    players: [
+      { name:'理想',     camp:'国内', color:'#D97706',
+        solution:'MindVLA (Vision-Language-Action)', sensorType:'fusion', sensor:'视觉 + 激光雷达',
+        algo:'端到端 E2E', chipType:'inhouse', chip:'自研 Mach M100',
+        mapDep:false, map:'不依赖', level:'L2++', levelScore:3,
+        data:'数亿公里 · MindSim 每日 10 亿公里合成',
+        bizType:'free', biz:'免费', l3:'研发中', l3Score:1,
+        badge:'端到端先行',
+        strategy:'VLA + 自研芯片双轮驱动，MindSim 虚拟仿真解决长尾数据瓶颈，车云一体闭环自训练是核心壁垒。' },
+      { name:'鸿蒙智行', camp:'国内', color:'#1D4ED8',
+        solution:'HUAWEI ADS 4.0 (Advanced Driving System)', sensorType:'fusion', sensor:'视觉 + 激光雷达 + 毫米波',
+        algo:'端到端 + 规则兜底', chipType:'inhouse', chip:'自研昇腾',
+        mapDep:false, map:'不依赖', level:'L2++', levelScore:3,
+        data:'问界·智界·享界 多品牌联合车队',
+        bizType:'subscription', biz:'买断（标准 3.6万；限时赠送中）', l3:'申请中', l3Score:2,
+        badge:'生态绑定',
+        strategy:'不造车只赋能——ADS 技术授权给四大品牌，多品牌数据共享形成规模优势，鸿蒙座舱生态绑定是差异化护城河。' },
+      { name:'小鹏',     camp:'国内', color:'#8B5CF6',
+        solution:'XNGP (XPeng Navigation Guided Pilot)', sensorType:'fusion', sensor:'视觉 + 激光雷达',
+        algo:'端到端 + VLA', chipType:'inhouse', chip:'自研图灵芯片',
+        mapDep:false, map:'不依赖', level:'L2++', levelScore:3,
+        data:'全国 200+ 城市无图覆盖',
+        bizType:'free', biz:'免费', l3:'研发中', l3Score:1,
+        badge:'技术最激进',
+        strategy:'自研图灵芯片 + VLA 双押注，最早量产全国无图城区 NOA，摆脱英伟达依赖是战略核心，同步向车企授权 AI 能力。' },
+      { name:'蔚来',     camp:'国内', color:'#3B82F6',
+        solution:'NOP+ (Navigation on Pilot)', sensorType:'fusion', sensor:'视觉 + 激光雷达 + 毫米波',
+        algo:'端到端 + 规则', chipType:'purchased', chip:'采购 NVIDIA ORIN',
+        mapDep:true, map:'部分依赖', level:'L2+', levelScore:2,
+        data:'全国高速全覆盖 · Adam 超算自训练',
+        bizType:'subscription', biz:'380元/月（限时赠送3年）', l3:'研发中', l3Score:1,
+        badge:'换电生态',
+        strategy:'换电网络是真正差异化——解决补能焦虑而非智驾领先。全系标配激光雷达构建数据飞轮，高端品牌调性是溢价来源。' },
+      { name:'小米',     camp:'国内', color:'#EA580C',
+        solution:'澎湃智驾', sensorType:'fusion', sensor:'视觉 + 激光雷达',
+        algo:'端到端', chipType:'purchased', chip:'采购 NVIDIA ORIN X',
+        mapDep:false, map:'不依赖', level:'L2++', levelScore:3,
+        data:'快速增长中',
+        bizType:'free', biz:'免费', l3:'研发中', l3Score:1,
+        badge:'生态互联',
+        strategy:'澎湃 OS 打通手机·家居·汽车三端，智驾是年轻用户切换品牌的加速器，自研芯片列入中期规划。' },
+      { name:'比亚迪',   camp:'国内', color:'#16A34A',
+        solution:'DiPilot / 天神之眼', sensorType:'fusion', sensor:'视觉 + 激光雷达',
+        algo:'端到端', chipType:'purchased', chip:'采购 地平线 · 英伟达',
+        mapDep:true, map:'部分依赖', level:'L2+', levelScore:2,
+        data:'全球最大电动车车队规模',
+        bizType:'free', biz:'免费', l3:'研发中', l3Score:1,
+        badge:'规模制胜',
+        strategy:'全球最大电动车销量带来无可比拟的数据规模，天神之眼以「多摄像头 + 一颗激光雷达」极致控本，以量换价反向倒逼供应链降价。' },
+      { name:'特斯拉',   camp:'海外', color:'#DC2626',
+        solution:'FSD v12 (Full Self-Driving)', sensorType:'vision', sensor:'纯视觉（8 摄像头）',
+        algo:'端到端神经网络', chipType:'inhouse', chip:'自研 HW4 · Dojo 超算',
+        mapDep:false, map:'不依赖', level:'L2++', levelScore:3,
+        data:'数十亿英里（全球最大）',
+        bizType:'subscription', biz:'美国 $99/月 订阅；中国 NOA 3.2万买断 / FSD 6.4万买断（申请中）', l3:'申请中（美）', l3Score:2,
+        badge:'数据规模最大',
+        strategy:'纯视觉方案用规模换精度——全球最大真实驾驶数据集是不可复制的壁垒。FSD 订阅制是软件变现先驱，Robotaxi 是下一个收入飞轮。' },
+      { name:'Waymo',    camp:'海外', color:'#0EA5E9',
+        solution:'Waymo Driver', sensorType:'fusion', sensor:'视觉 + 激光雷达 + 毫米波',
+        algo:'规则 + 神经网络', chipType:'hybrid', chip:'自研 + 采购混合',
+        mapDep:true, map:'高精地图（强依赖）', level:'L4', levelScore:5,
+        data:'数百万英里（深度精细）',
+        bizType:'taas', biz:'Robotaxi 按次收费', l3:'L4 已商用（美）', l3Score:5,
+        badge:'商业化最成熟',
+        strategy:'不卖车，只卖里程——Robotaxi 按次收费是 L4 唯一可行商业模式。零自动驾驶责任事故记录是最强护城河，Google 生态是资金后盾。' },
+      { name:'Mercedes', camp:'海外', color:'#6B7280',
+        solution:'Drive Pilot', sensorType:'fusion', sensor:'视觉 + 激光雷达 + 毫米波',
+        algo:'规则为主', chipType:'purchased', chip:'采购',
+        mapDep:true, map:'高精地图（强依赖）', level:'L3', levelScore:4,
+        data:'受限（特定高速路段）',
+        bizType:'bundled', biz:'高端选配含车价', l3:'L3 已量产（德·美）', l3Score:4,
+        badge:'全球首个量产 L3',
+        strategy:'以法律合规为护城河——全球首个获德美监管认证的量产 L3，驾驶员可合法脱手。不追求技术极限而追求责任边界清晰，走豪华品牌溢价路线。' },
     ],
   },
 

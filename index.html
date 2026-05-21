@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI 行业研究报告 2026 · 理想汽车</title>
-  <link rel="stylesheet" href="styles.css?v=20260518q">
+  <link rel="stylesheet" href="styles.css?v=20260521e">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
@@ -20,7 +20,7 @@
   <div class="rpt-hd-right">
     <span class="rpt-meta-item">作者：王艺雯 · Eve Wang</span>
     <span class="rpt-meta-sep">·</span>
-    <span class="rpt-meta-item">最后更新：2026年5月17日</span>
+    <span class="rpt-meta-item">最后更新：2026年5月21日</span>
   </div>
 </header>
 
@@ -188,35 +188,47 @@
         <span class="mod-sub">点击标题展开详情</span>
       </div>
       <div id="s2-appendix-wrap">
-        <div class="s2app-item" id="app-item-0">
-          <button class="s2app-trigger" onclick="toggleAppItem(0)">
-            <span>云端 AI 与端侧 AI</span><span class="s2app-arrow">▸</span>
-          </button>
-          <div class="s2app-content" id="app-item-0-content">
+        <div class="lx-accordion" id="app-item-0">
+          <div class="lxad-app-hd collapsible" onclick="toggleAppItem(0)">
+            <span class="lxad-app-no">A</span>
+            <span class="lxad-app-title">云端 AI 与端侧 AI</span>
+            <span class="lxad-app-sub">架构对比 · 延迟 vs 精度 · 典型部署方案</span>
+            <span class="lx-collapse-arrow" id="app-arrow-0">▼</span>
+          </div>
+          <div class="lx-collapse-body" id="app-item-0-content">
             <div id="edge-ai-wrap"></div>
           </div>
         </div>
-        <div class="s2app-item" id="app-item-1">
-          <button class="s2app-trigger" onclick="toggleAppItem(1)">
-            <span>算力铁三角</span><span class="s2app-arrow">▸</span>
-          </button>
-          <div class="s2app-content" id="app-item-1-content">
+        <div class="lx-accordion" id="app-item-1">
+          <div class="lxad-app-hd collapsible" onclick="toggleAppItem(1)">
+            <span class="lxad-app-no">B</span>
+            <span class="lxad-app-title">算力铁三角</span>
+            <span class="lxad-app-sub">算力 · 内存带宽 · 能效——三者永久博弈</span>
+            <span class="lx-collapse-arrow" id="app-arrow-1">▼</span>
+          </div>
+          <div class="lx-collapse-body" id="app-item-1-content">
             <div id="hw-triangle-wrap"></div>
           </div>
         </div>
-        <div class="s2app-item" id="app-item-2">
-          <button class="s2app-trigger" onclick="toggleAppItem(2)">
-            <span>模型蒸馏与量化</span><span class="s2app-arrow">▸</span>
-          </button>
-          <div class="s2app-content" id="app-item-2-content">
+        <div class="lx-accordion" id="app-item-2">
+          <div class="lxad-app-hd collapsible" onclick="toggleAppItem(2)">
+            <span class="lxad-app-no">C</span>
+            <span class="lxad-app-title">模型蒸馏与量化</span>
+            <span class="lxad-app-sub">压缩技术 · 精度保留 · 端侧部署核心工具</span>
+            <span class="lx-collapse-arrow" id="app-arrow-2">▼</span>
+          </div>
+          <div class="lx-collapse-body" id="app-item-2-content">
             <div id="app-distill-wrap"></div>
           </div>
         </div>
-        <div class="s2app-item" id="app-item-3">
-          <button class="s2app-trigger" onclick="toggleAppItem(3)">
-            <span>帕累托前沿博弈</span><span class="s2app-arrow">▸</span>
-          </button>
-          <div class="s2app-content" id="app-item-3-content">
+        <div class="lx-accordion" id="app-item-3">
+          <div class="lxad-app-hd collapsible" onclick="toggleAppItem(3)">
+            <span class="lxad-app-no">D</span>
+            <span class="lxad-app-title">帕累托前沿博弈</span>
+            <span class="lxad-app-sub">多目标优化 · 精度 vs 速度 vs 安全不可能三角</span>
+            <span class="lx-collapse-arrow" id="app-arrow-3">▼</span>
+          </div>
+          <div class="lx-collapse-body" id="app-item-3-content">
             <div id="app-pareto-wrap"></div>
           </div>
         </div>
@@ -243,7 +255,7 @@
     <div class="sec-hd s4-hd">
       <span class="sec-num s4-num">SECTION 03 · 专题分析</span>
       <h2 class="sec-title">理想汽车：具身智能先行者</h2>
-      <span class="sec-sub">战略回顾 · 空间 Agent · MindVLA · 马赫 100 · MindSim</span>
+      <span class="sec-sub">战略回顾 · 空间 Agent · MindVLA · 马赫 M100 · MindSim</span>
     </div>
 
     <!-- 01 · 战略回顾 -->
@@ -291,10 +303,11 @@
       <div class="mod-hd">
         <span class="mod-no s4-no">05</span>
         <h3 class="mod-title">附录</h3>
-        <span class="mod-sub">自动驾驶分级（L0–L5）· 产品路线图</span>
+        <span class="mod-sub">自动驾驶分级（L0–L5）· 产品路线图 · 主要玩家战略</span>
       </div>
       <div id="lx-ad-level-wrap"></div>
       <div id="lx-roadmap-wrap"></div>
+      <div id="lx-player-strategy-wrap"></div>
     </div>
 
     <div class="sec-foot">
@@ -420,7 +433,7 @@
   </div>
 </section>
 
-<script src="data.js?v=20260518p"></script>
-<script src="charts.js?v=20260518q"></script>
+<script src="data.js?v=20260522b"></script>
+<script src="charts.js?v=20260521p"></script>
 </body>
 </html>

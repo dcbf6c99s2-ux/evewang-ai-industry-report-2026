@@ -1864,7 +1864,7 @@ body {
   transition: box-shadow .15s, transform .15s;
 }
 .gloss-fan-card:hover { box-shadow:0 5px 18px rgba(0,0,0,.08); transform:translateY(-2px); }
-.gloss-fan-card.highlight { background:#FFF8F6; }
+.gloss-fan-card.highlight { background: #fff; } /* same as regular cards — no tint */
 
 .gloss-fan-no   { font-family:var(--mono); font-size:9px; font-weight:700; color:var(--dc); opacity:.65; margin-bottom:5px; letter-spacing:.06em; }
 .gloss-fan-term    { font-family:var(--mono); font-size:14px; font-weight:700; color:var(--dc); margin-bottom:2px; line-height:1.2; }
@@ -5854,6 +5854,49 @@ body {
   color: var(--i3);
   font-family: var(--mono);
 }
+
+/* ── 附录折叠 ── */
+.lx-accordion {
+  border: 1.5px solid var(--ru);
+  border-radius: var(--rad);
+  background: var(--sf);
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.lx-accordion .lxad-app-hd.collapsible {
+  padding: 14px 18px;
+  margin: 0;
+  transition: background .15s;
+}
+.lx-accordion .lxad-app-hd.collapsible:hover { background: var(--bg); }
+.lx-accordion .lx-collapse-body {
+  border-top: 0px solid var(--ru);
+  padding: 0;
+  transition: max-height .4s ease, border-top-width 0s, padding .4s ease;
+}
+.lx-accordion .lx-collapse-body.open {
+  border-top-width: 1px;
+  padding: 20px 18px;
+}
+.lxad-app-hd.collapsible { cursor: pointer; user-select: none; }
+.lxad-app-hd.collapsible:hover .lxad-app-no { transform: scale(1.1); }
+.lxad-app-no { transition: transform .15s; }
+.lx-collapse-arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 10px;
+  color: var(--i3);
+  transition: transform .25s;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: var(--ru);
+}
+.lx-collapse-body {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .4s ease;
+}
+.lx-collapse-body.open { max-height: 5500px; }
 
 /* 顶部光谱渐变条 */
 .lxad-spectrum {

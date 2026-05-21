@@ -837,14 +837,21 @@ function renderS2EndgameNew() {
 const _appRendered = [false, false, false, false];
 
 window.toggleAppItem = function(idx) {
+  /* collapse all others (accordion: one open at a time) */
   for (let i = 0; i < 4; i++) {
-    const el = document.getElementById('app-item-' + i);
-    if (el && i !== idx) el.classList.remove('open');
+    if (i === idx) continue;
+    const b = document.getElementById('app-item-' + i + '-content');
+    const a = document.getElementById('app-arrow-' + i);
+    if (b) b.classList.remove('open');
+    if (a) a.textContent = '▼';
   }
-  const target = document.getElementById('app-item-' + idx);
-  if (!target) return;
-  const wasOpen = target.classList.contains('open');
-  target.classList.toggle('open', !wasOpen);
+  const body  = document.getElementById('app-item-' + idx + '-content');
+  const arrow = document.getElementById('app-arrow-' + idx);
+  if (!body) return;
+  const wasOpen = body.classList.contains('open');
+  body.classList.toggle('open', !wasOpen);
+  if (arrow) arrow.textContent = wasOpen ? '▼' : '▲';
+  /* lazy render on first open */
   if (!wasOpen && !_appRendered[idx]) {
     _appRendered[idx] = true;
     if (idx === 0) renderEdgeAI();
@@ -1684,13 +1691,24 @@ function renderRobotField() {
 /* ════════════════════════════════════════
    SECTION 04 · 理想汽车：具身智能先行者
 ════════════════════════════════════════ */
+/* 附录折叠开关：a 默认收起，b 默认展开，c 默认收起 */
+window._lcState = { a: true, b: true, c: true };
+window._lxCollapse = function(id) {
+  window._lcState[id] = !window._lcState[id];
+  const body  = document.getElementById('lcb-' + id);
+  const arrow = document.getElementById('lca-' + id);
+  if (body)  body.classList.toggle('open', window._lcState[id]);
+  if (arrow) arrow.textContent = window._lcState[id] ? '▲' : '▼';
+};
+
 function renderS4() {
   renderLxMilestones();
   renderLxSecondCurve();
   renderLxStrategy();
   renderLxRiskMatrix();  /* 04 · 战略风险和挑战 */
-  renderLxAdLevel();     /* 05a · 自动驾驶分级 */
-  renderLxRoadmap();     /* 05b · 产品路线图 */
+  renderLxAdLevel();        /* 05a · 自动驾驶分级 */
+  renderLxRoadmap();        /* 05b · 产品路线图 */
+  renderPlayerStrategy();   /* 05c · 主要玩家战略 */
 }
 
 /* 03 · 战略落地路径 */
@@ -1866,7 +1884,7 @@ function renderLxStrategy() {
       { name:'MindSim',                tag:'超级模拟器', desc:'生成式 AI 高保真重建事故场景，生产高价值长尾数据（Data Engine），安全边界无限拓宽。' },
     ]},
     { key:'cerebellum',  color:'#C0604A', icon:'⚡', layer:'小脑', sub:'自研芯片 & 软件', items:[
-      { name:'马赫 100（Mach 100）',    tag:'5nm 自研',  desc:'双芯 2560 TOPS（行业 3×）。通用 AI 芯片，智驾与机器人推理算法无缝复用。' },
+      { name:'马赫 M100（Mach M100）',    tag:'5nm 自研',  desc:'双芯 2560 TOPS（行业 3×）。通用 AI 芯片，智驾与机器人推理算法无缝复用。' },
       { name:'DSA 数据流架构',          tag:'近计算',    desc:'数据在芯片内"流动即计算"，用更低功耗实现超高 VLA 推理效率，解决 GPU 内存墙问题。' },
       { name:'端云协同 System 1+2',     tag:'双层决策',  desc:'<b>System 1（端侧）</b>&lt;20ms 身体反射；<b>System 2（云端）</b>1T+ 参数长程规划。' },
       { name:'统一操作系统（LiOS）',    tag:'神经总线',  desc:'高实时性底层 OS，把 MindVLA-o1 决策无死锁传递给线控底盘，连接大脑与四肢。' },
@@ -2062,7 +2080,7 @@ function renderLxSecondCurve() {
           <div class="sc2-conc-phase-body">
             <div class="sc2-conc-phase-kv"><span class="sc2-conc-kv-k">载体</span>乘用车（L 系列）</div>
             <div class="sc2-conc-phase-kv"><span class="sc2-conc-kv-k">场景</span>高速 & 城市道路结构化场景</div>
-            <div class="sc2-conc-phase-kv"><span class="sc2-conc-kv-k">核心赌注</span>MindVLA-o1 + 马赫 100 芯片</div>
+            <div class="sc2-conc-phase-kv"><span class="sc2-conc-kv-k">核心赌注</span>MindVLA-o1 + 马赫 M100 芯片</div>
             <div class="sc2-conc-phase-kv"><span class="sc2-conc-kv-k">价值</span>完成具身智能第一次规模化验证，积累真实物理世界数据</div>
           </div>
         </div>
@@ -2359,7 +2377,7 @@ function renderMindVLA() {
   `;
 }
 
-/* 04 · 马赫 100 */
+/* 04 · 马赫 M100 */
 function renderMach100() {
   const el = document.getElementById('mach100-wrap');
   if (!el) return;
@@ -2849,17 +2867,22 @@ function renderLxAdLevel() {
   }).join('');
 
   el.innerHTML = `
-    <div class="lxad-app-hd">
-      <span class="lxad-app-no">A</span>
-      <span class="lxad-app-title">自动驾驶分级（L0–L5）</span>
-      <span class="lxad-app-sub">责任归属 · 代表玩家 · 落地时间线</span>
-    </div>
-    <div class="lxad-spectrum">
-      <span class="lxad-spec-lbl">👤 人类主导</span>
-      <div class="lxad-spec-bar">${spectrumSegs}</div>
-      <span class="lxad-spec-lbl">🤖 系统主导</span>
-    </div>
-    <div class="lxad-grid">${cardsHtml}</div>`;
+    <div class="lx-accordion">
+      <div class="lxad-app-hd collapsible" onclick="window._lxCollapse('a')">
+        <span class="lxad-app-no">A</span>
+        <span class="lxad-app-title">自动驾驶分级（L0–L5）</span>
+        <span class="lxad-app-sub">责任归属 · 代表玩家 · 落地时间线</span>
+        <span class="lx-collapse-arrow" id="lca-a">▼</span>
+      </div>
+      <div class="lx-collapse-body" id="lcb-a">
+        <div class="lxad-spectrum">
+          <span class="lxad-spec-lbl">👤 人类主导</span>
+          <div class="lxad-spec-bar">${spectrumSegs}</div>
+          <span class="lxad-spec-lbl">🤖 系统主导</span>
+        </div>
+        <div class="lxad-grid">${cardsHtml}</div>
+      </div>
+    </div>`;
 }
 
 /* ════════════════════════════════════════
@@ -2882,10 +2905,12 @@ function renderLxRoadmap() {
     const ys = v => ((1 - (v - yMin) / (yMax - yMin)) * iH).toFixed(2);
 
     const bandsSvg = bands.map(b => {
-      const y1 = ys(b.max), y2 = ys(b.min);
-      return `<rect x="0" y="${y1}" width="${iW}" height="${(parseFloat(y2)-parseFloat(y1)).toFixed(2)}" fill="${b.color}"/>
-        <text x="-6" y="${((parseFloat(y1)+parseFloat(y2))/2+3.5).toFixed(1)}"
-          text-anchor="end" font-size="9" fill="#94a3b8" font-family="var(--mono)">${b.label}</text>`;
+      const y1 = ys(Math.min(b.max, yMax)), y2 = ys(Math.max(b.min, yMin));
+      const h = (parseFloat(y2) - parseFloat(y1)).toFixed(2);
+      if (parseFloat(h) <= 0) return '';
+      return `<rect x="0" y="${y1}" width="${iW}" height="${h}" fill="${b.color}"/>
+        <text x="${iW - 5}" y="${(parseFloat(y1) + 11).toFixed(1)}"
+          text-anchor="end" font-size="8.5" fill="#b0b8c8" font-family="var(--mono)">${b.label}</text>`;
     }).join('');
 
     const gridSvg = yearTicks.map(yr => {
@@ -2954,22 +2979,22 @@ function renderLxRoadmap() {
   /* ── chart configs ── */
   const domCfg = {
     W:760, H:500, mg:{top:30,right:28,bottom:52,left:72},
-    xMin:2018.4, xMax:2027.9, yMin:9, yMax:88,
+    xMin:2018.4, xMax:2027.9, yMin:9, yMax:78,
     bands: rm.price_bands_dom,
     yearTicks: [2019,2020,2021,2022,2023,2024,2025,2026,2027],
-    yTicks: [10,20,30,40,50,60,70,80],
+    yTicks: [10,20,30,40,50,60,70],
     yUnit: '万', futureX: 2025.7,
   };
   const ovsCfg = {
     W:760, H:500, mg:{top:30,right:28,bottom:52,left:82},
-    xMin:2020.0, xMax:2027.9, yMin:15, yMax:165,
+    xMin:2020.0, xMax:2027.9, yMin:15, yMax:155,
     bands: [
       { label:'$20–50k', min:20,  max:50,  color:'rgba(34,197,94,0.05)'  },
       { label:'$50–80k', min:50,  max:80,  color:'rgba(59,130,246,0.05)' },
-      { label:'$80k+',   min:80,  max:165, color:'rgba(245,158,11,0.05)' },
+      { label:'$80k+',   min:80,  max:155, color:'rgba(245,158,11,0.05)' },
     ],
     yearTicks: [2021,2022,2023,2024,2025,2026,2027],
-    yTicks: [20,40,60,80,100,120,140,160],
+    yTicks: [20,40,60,80,100,120,140],
     yUnit: 'k$', futureX: 2025.7,
   };
 
@@ -3057,20 +3082,298 @@ function renderLxRoadmap() {
 
   /* ── initial render ── */
   el.innerHTML = `
-    <div class="lxad-app-hd" style="margin-top:40px">
-      <span class="lxad-app-no">B</span>
-      <span class="lxad-app-title">产品路线图</span>
-      <span class="lxad-app-sub">价格区间 × 上市年份 — 国内 &amp; 海外市场全景</span>
-    </div>
-    <div class="rm-tab-bar">
-      <button id="rm-tab-domestic" class="rm-tab active" onclick="window._rmTab('domestic')">🇨🇳 国内市场</button>
-      <button id="rm-tab-overseas" class="rm-tab" onclick="window._rmTab('overseas')">🌍 海外市场</button>
-    </div>
-    <div id="rm-brand-bar" class="rm-brand-bar"></div>
-    <div id="rm-chart-area" class="rm-chart-area"></div>`;
+    <div class="lx-accordion" style="margin-top:20px">
+      <div class="lxad-app-hd collapsible" onclick="window._lxCollapse('b')">
+        <span class="lxad-app-no">B</span>
+        <span class="lxad-app-title">产品路线图</span>
+        <span class="lxad-app-sub">价格区间 × 上市年份 — 国内 &amp; 海外市场全景</span>
+        <span class="lx-collapse-arrow" id="lca-b">▲</span>
+      </div>
+      <div class="lx-collapse-body open" id="lcb-b">
+        <div class="rm-tab-bar">
+          <button id="rm-tab-domestic" class="rm-tab active" onclick="window._rmTab('domestic')">🇨🇳 国内市场</button>
+          <button id="rm-tab-overseas" class="rm-tab" onclick="window._rmTab('overseas')">🌍 海外市场</button>
+        </div>
+        <div id="rm-brand-bar" class="rm-brand-bar"></div>
+        <div id="rm-chart-area" class="rm-chart-area"></div>
+      </div>
+    </div>`;
 
   /* trigger domestic */
   window._rmTab('domestic');
+}
+
+
+/* ════════════════════════════════════════
+   SECTION 04 附录 · C · 主要玩家战略
+════════════════════════════════════════ */
+function renderPlayerStrategy() {
+  const wrap = document.getElementById('lx-player-strategy-wrap');
+  if (!wrap) return;
+  const players = (window.AI_DATA.s4_player_strategy || {}).players || [];
+  if (!players.length) return;
+
+  /* ── state ── */
+  if (!window._psState) {
+    window._psState = { camp:'all', sensor:'all', chip:'all', sortCol:'levelScore', sortDir:-1 };
+  }
+  const st = window._psState;
+
+  /* ── helpers ── */
+  function psChip(text, color) {
+    return `<span style="display:inline-block;padding:1px 7px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;flex-shrink:0;background:${color}20;color:${color};border:1px solid ${color}40;">${text}</span>`;
+  }
+  function psFBtn(key, val, label, col) {
+    const active = st[key] === val;
+    const bg  = active ? col : 'transparent';
+    const clr = active ? '#fff' : '#555';
+    const bdr = active ? col : '#ccc';
+    return `<button onclick="window._psFilter('${key}','${val}')" style="padding:3px 11px;border-radius:16px;border:1px solid ${bdr};background:${bg};color:${clr};font-size:12px;cursor:pointer;transition:all .2s;">${label}</button>`;
+  }
+  function psIco(col) {
+    if (st.sortCol !== col) return `<span style="opacity:.3;font-size:10px;margin-left:3px;">⇅</span>`;
+    return st.sortDir === -1
+      ? `<span style="font-size:10px;margin-left:3px;color:#2563EB;">▼</span>`
+      : `<span style="font-size:10px;margin-left:3px;color:#2563EB;">▲</span>`;
+  }
+  function thStyle(col) {
+    const active = st.sortCol === col;
+    return `style="padding:9px 10px;text-align:left;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;color:${active?'#2563EB':'#444'};border-bottom:2px solid ${active?'#2563EB':'#e5e7eb'};"`;
+  }
+
+  /* ── filter + sort ── */
+  function getRows() {
+    let rows = players.slice();
+    if (st.camp !== 'all')   rows = rows.filter(p => p.camp === st.camp);
+    if (st.sensor !== 'all') rows = rows.filter(p => p.sensorType === st.sensor);
+    if (st.chip !== 'all')   rows = rows.filter(p => p.chipType === st.chip);
+    rows.sort((a,b) => {
+      const av = a[st.sortCol] ?? 0;
+      const bv = b[st.sortCol] ?? 0;
+      if (typeof av === 'number') return (av - bv) * st.sortDir;
+      return String(av).localeCompare(String(bv)) * st.sortDir;
+    });
+    return rows;
+  }
+
+  /* ── bar ── */
+  function buildBar() {
+    const campColor   = '#2563EB';
+    const sensorColor = '#7C3AED';
+    const chipColor   = '#D97706';
+    return `
+    <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;padding:14px 18px;background:#F8FAFC;border-radius:10px;border:1px solid #e5e7eb;margin-bottom:18px;">
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span style="font-size:12px;color:#888;font-weight:600;">阵营</span>
+        ${psFBtn('camp','all','全部',campColor)}
+        ${psFBtn('camp','国内','国内',campColor)}
+        ${psFBtn('camp','海外','海外',campColor)}
+      </div>
+      <div style="width:1px;height:22px;background:#ddd;"></div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span style="font-size:12px;color:#888;font-weight:600;">传感器</span>
+        ${psFBtn('sensor','all','全部',sensorColor)}
+        ${psFBtn('sensor','fusion','融合感知',sensorColor)}
+        ${psFBtn('sensor','vision','纯视觉',sensorColor)}
+      </div>
+      <div style="width:1px;height:22px;background:#ddd;"></div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span style="font-size:12px;color:#888;font-weight:600;">芯片</span>
+        ${psFBtn('chip','all','全部',chipColor)}
+        ${psFBtn('chip','inhouse','自研',chipColor)}
+        ${psFBtn('chip','purchased','采购',chipColor)}
+        ${psFBtn('chip','hybrid','混合',chipColor)}
+      </div>
+    </div>`;
+  }
+
+  /* ── level bar ── */
+  function levelBar(score) {
+    const colors = ['#d1d5db','#86efac','#4ade80','#22c55e','#16a34a','#15803d'];
+    const labels = ['—','L2','L2+','L2++','L3','L4'];
+    const c = colors[score] || '#d1d5db';
+    return `<div style="display:flex;align-items:center;gap:5px;">
+      <div style="display:flex;gap:2px;">${[1,2,3,4,5].map(i=>`<div style="width:10px;height:10px;border-radius:2px;background:${i<=score?c:'#e5e7eb'};"></div>`).join('')}</div>
+      <span style="font-size:12px;font-weight:700;color:${c};">${labels[score]||''}</span>
+    </div>`;
+  }
+
+  /* ── matrix table ── */
+  function buildTable(rows) {
+    const cols = [
+      { key:'name',       label:'玩家',     w:'80px'  },
+      { key:'solution',   label:'方案',     w:'110px' },
+      { key:'sensor',     label:'传感器',   w:'130px' },
+      { key:'algo',       label:'算法',     w:'110px' },
+      { key:'chip',       label:'芯片',     w:'120px' },
+      { key:'map',        label:'地图依赖', w:'90px'  },
+      { key:'levelScore', label:'智驾等级', w:'100px' },
+      { key:'data',       label:'数据规模', w:'160px' },
+    ];
+    const headCells = cols.map(c => {
+      const sortable = ['levelScore','name','solution'].includes(c.key);
+      const onclick = sortable ? `onclick="window._psSort('${c.key}')"` : '';
+      return `<th ${thStyle(c.key)} ${onclick} style="min-width:${c.w};padding:9px 10px;text-align:left;font-size:12px;font-weight:600;cursor:${sortable?'pointer':'default'};white-space:nowrap;color:${st.sortCol===c.key?'#2563EB':'#444'};border-bottom:2px solid ${st.sortCol===c.key?'#2563EB':'#e5e7eb'};">${c.label}${sortable?psIco(c.key):''}</th>`;
+    }).join('');
+
+    const bodyRows = rows.map(p => {
+      const campTag = p.camp==='海外'
+        ? `<span style="font-size:10px;padding:1px 5px;border-radius:10px;background:#FEE2E2;color:#DC2626;border:1px solid #FCA5A5;">海外</span>`
+        : `<span style="font-size:10px;padding:1px 5px;border-radius:10px;background:#DBEAFE;color:#1D4ED8;border:1px solid #93C5FD;">国内</span>`;
+      const mapColor = p.mapDep ? '#F59E0B' : '#10B981';
+      return `<tr style="border-bottom:1px solid #f3f4f6;transition:background .15s;" onmouseover="this.style.background='#F8FAFC'" onmouseout="this.style.background='transparent'">
+        <td style="padding:9px 10px;min-width:80px;">
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <span style="font-weight:700;font-size:13px;color:${p.color};">${p.name}</span>
+            ${campTag}
+          </div>
+        </td>
+        <td style="padding:9px 10px;font-size:12px;font-weight:600;color:#374151;">${p.solution}</td>
+        <td style="padding:9px 10px;">
+          <div style="font-size:12px;color:#374151;">${p.sensor}</div>
+          <div style="margin-top:2px;">${psChip(p.sensorType==='fusion'?'融合':'纯视觉', p.sensorType==='fusion'?'#7C3AED':'#DC2626')}</div>
+        </td>
+        <td style="padding:9px 10px;font-size:12px;color:#374151;">${p.algo}</td>
+        <td style="padding:9px 10px;">
+          <div style="font-size:12px;color:#374151;">${p.chip}</div>
+          <div style="margin-top:2px;">${psChip(p.chipType==='inhouse'?'自研':p.chipType==='hybrid'?'混合':'采购', p.chipType==='inhouse'?'#D97706':p.chipType==='hybrid'?'#6B7280':'#3B82F6')}</div>
+        </td>
+        <td style="padding:9px 10px;">
+          <span style="font-size:12px;font-weight:600;color:${mapColor};">${p.map}</span>
+        </td>
+        <td style="padding:9px 10px;">${levelBar(p.levelScore)}</td>
+        <td style="padding:9px 10px;font-size:11px;color:#6B7280;line-height:1.5;">${p.data}</td>
+      </tr>`;
+    }).join('');
+
+    return `<div style="overflow-x:auto;border-radius:10px;border:1px solid #e5e7eb;margin-bottom:24px;">
+      <table style="width:100%;border-collapse:collapse;min-width:860px;">
+        <thead style="background:#F1F5F9;">
+          <tr>${headCells}</tr>
+        </thead>
+        <tbody>${bodyRows}</tbody>
+      </table>
+    </div>`;
+  }
+
+  /* ── strategy cards ── */
+  function buildCards(rows) {
+    const cards = rows.map(p => `
+      <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 4px rgba(0,0,0,.04);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div style="flex:1;min-width:0;">
+            <span style="font-size:16px;font-weight:800;color:${p.color};">${p.name}</span>
+            <div style="font-size:10.5px;color:#9CA3AF;line-height:1.4;margin-top:2px;word-break:break-word;">${p.solution}</div>
+          </div>
+          ${psChip(p.badge, p.color)}
+        </div>
+        <div style="font-size:12px;color:#374151;line-height:1.7;border-left:3px solid ${p.color}20;padding-left:10px;">${p.strategy}</div>
+      </div>`).join('');
+    return `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;">${cards}</div>`;
+  }
+
+  /* ── l3 score to bar ── */
+  function l3Bar(score, label, color) {
+    const pct = score === 0 ? 8 : score * 20;
+    const barColor = score >= 4 ? '#16A34A' : score >= 2 ? '#D97706' : '#9CA3AF';
+    return `<div style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <span style="font-size:12px;font-weight:600;">${label}</span>
+        <span style="font-size:11px;color:${barColor};font-weight:700;">${color}</span>
+      </div>
+      <div style="height:8px;background:#f3f4f6;border-radius:4px;overflow:hidden;">
+        <div style="height:100%;width:${pct}%;background:${barColor};border-radius:4px;transition:width .6s;"></div>
+      </div>
+    </div>`;
+  }
+
+  /* ── monetization + compliance ── */
+  function buildBizL3(all) {
+    const bizIcons = { free:'🎁', subscription:'💳', bundled:'🚗', taas:'🚕' };
+    const bizRows = all.map(p => {
+      const ico = bizIcons[p.bizType] || '💡';
+      return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f3f4f6;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:14px;">${ico}</span>
+          <span style="font-weight:600;color:${p.color};font-size:13px;">${p.name}</span>
+        </div>
+        <span style="font-size:12px;color:#374151;">${p.biz}</span>
+      </div>`;
+    }).join('');
+
+    const compliRows = all.map(p => l3Bar(p.l3Score, p.name, p.l3, p.color)).join('');
+
+    return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px;">
+      <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;">
+        <div style="font-size:13px;font-weight:700;color:#1F2937;margin-bottom:12px;display:flex;align-items:center;gap:6px;">
+          <span>💰</span> 商业化路径对比
+        </div>
+        ${bizRows}
+      </div>
+      <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;">
+        <div style="font-size:13px;font-weight:700;color:#1F2937;margin-bottom:12px;display:flex;align-items:center;gap:6px;">
+          <span>🏛️</span> 监管合规进度（L3/L4）
+        </div>
+        ${compliRows}
+        <div style="font-size:10px;color:#9CA3AF;margin-top:8px;">进度条长度 = 合规成熟度，满格 = L4 已商用</div>
+      </div>
+    </div>`;
+  }
+
+  /* ── main rebuild ── */
+  function rebuild() {
+    const rows = getRows();
+    const _cOpen = window._lcState && window._lcState.c;
+    wrap.innerHTML = `
+    <div style="margin-top:20px;">
+      <div class="lx-accordion">
+        <!-- section header — 与 B·产品路线图 风格统一 -->
+        <div class="lxad-app-hd collapsible" onclick="window._lxCollapse('c')">
+          <span class="lxad-app-no">C</span>
+          <span class="lxad-app-title">主要玩家战略</span>
+          <span class="lxad-app-sub">技术方案 · 战略定位 · 商业化路径 · 监管合规
+            <span style="margin-left:8px;opacity:.7;">${rows.length}/${players.length} 家</span>
+          </span>
+          <span class="lx-collapse-arrow" id="lca-c">${_cOpen ? '▲' : '▼'}</span>
+        </div>
+        <div class="lx-collapse-body${_cOpen ? ' open' : ''}" id="lcb-c">
+      <!-- filter bar -->
+      ${buildBar()}
+      <!-- matrix -->
+      ${rows.length ? buildTable(rows) : '<div style="text-align:center;padding:40px;color:#9CA3AF;font-size:14px;">无匹配玩家</div>'}
+      <!-- strategy cards -->
+      ${rows.length ? `<div style="font-size:13px;font-weight:700;color:#374151;margin-bottom:12px;display:flex;align-items:center;gap:6px;"><span>🧭</span> 战略定位速览</div>${buildCards(rows)}` : ''}
+      <!-- biz + compliance (always full list for context) -->
+      <div style="font-size:13px;font-weight:700;color:#374151;margin-bottom:12px;display:flex;align-items:center;gap:6px;"><span>📊</span> 商业化 × 合规全览（不随筛选变化）</div>
+      ${buildBizL3(players)}
+        </div><!-- /lcb-c -->
+      </div><!-- /lx-accordion -->
+    </div>`;
+
+    /* re-register handlers */
+    window._psFilter = function(key, val) {
+      window._psState[key] = val;
+      rebuild();
+    };
+    window._psSort = function(col) {
+      if (window._psState.sortCol === col) {
+        window._psState.sortDir *= -1;
+      } else {
+        window._psState.sortCol = col;
+        window._psState.sortDir = -1;
+      }
+      rebuild();
+    };
+  }
+
+  /* init handlers before first build */
+  window._psFilter = function(key, val) { window._psState[key] = val; rebuild(); };
+  window._psSort   = function(col) {
+    if (window._psState.sortCol === col) window._psState.sortDir *= -1;
+    else { window._psState.sortCol = col; window._psState.sortDir = -1; }
+    rebuild();
+  };
+  rebuild();
 }
 
 
@@ -3292,7 +3595,7 @@ function renderVibeCoding() {
       {
         icon: '📋', color: '#0D3F7A', bg: '#DBEAFE',
         title: '持续审阅报告，整理修改意见再交给 AI',
-        body: '在 Cowork 会话间隙，定期打开报告完整浏览一遍，把发现的问题用截图 + 简短文字列成清单。这比随想随说效率高得多——AI 能一次性理解多个上下文相关的改动，定位更准，修改更少来回。人扮演的是"审稿编辑"的角色，AI 是"执行助理"。',
+        body: '在 Cowork 会话间隙，定期打开报告完整浏览一遍，把发现的问题用截图 + 简短文字列成清单。面对复杂任务（如 roadmap 数据核查），先让 AI 一次性输出所有问题，人工逐条确认哪些修、哪些留，再统一放行——「先检查，确认后调整」比「边做边改」减少约 60% 来回。人扮演的是"审稿编辑"的角色，AI 是"执行助理"。',
       },
     ];
     const featured = insights.filter(i => i.featured);
